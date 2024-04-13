@@ -8,7 +8,7 @@ function page() {
     const {user,dispatch}=UseAuthContext()
 
   return (
-    <div className="col-span-3 h-screen overflow-y-auto custom-scrollbar-hidden bg-slate-950 mx-2">
+    <div className=" h-screen overflow-y-auto custom-scrollbar-hidden bg-slate-950 mx-2">
       <ProfileHeader
         coverImage={user?.coverImage}
         profileImage={user?.profileImage}

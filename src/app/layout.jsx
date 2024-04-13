@@ -21,7 +21,10 @@ export default function RootLayout({ children }) {
             <Header />
             <div className="grid grid-cols-7 p-4">
               <LeftSideBer />
+              <div className="lg:col-span-3 col-span-12">
+
                 {children}
+              </div>
               <RightSideBer />
             </div>
           </AuthContexProvider>
