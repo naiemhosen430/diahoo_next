@@ -1,10 +1,13 @@
+import User from "@/Models/User.Model";
 import { dbconnect } from "@/Utils/mongo";
 
 export async function GET(Request) {
   await dbconnect();
   const id = Request.url.split("user/")[1];
-
+  console.log(id)
+  
   const data = await User.findOne({ _id: id });
+  console.log(data)
 
   if (!data) {
     return Response.json(
