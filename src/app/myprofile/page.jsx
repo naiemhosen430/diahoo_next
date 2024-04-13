@@ -13,7 +13,7 @@ function page() {
         if (user) {
             getProfile(user.id); 
         }
-    }, [user, getProfile]);
+    }, [user]);
 
     if (loading || !profile) {
         return <h1 className="text-white text-center">Loading....</h1>; 
