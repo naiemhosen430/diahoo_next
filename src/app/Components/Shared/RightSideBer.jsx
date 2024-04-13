@@ -9,7 +9,7 @@ export default function RightSideBer() {
     return null
   }
   return (
-    <div className="col-span-2 p-4 bg-slate-950">
+    <div className="lg:col-span-2 lg:block hidden p-4 bg-slate-950">
       <h1 className="text-white font-bold text-center">Notification</h1>
       {/* <Notification /> */}
     </div>

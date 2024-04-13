@@ -62,7 +62,7 @@ function LeftSideBer() {
       )}
       {showmynoteboxalert && <MyNote closecreatenotebox={closecreatenotebox} />}
 
-      <div className="col-span-2 text-zinc-50 p-4 bg-slate-950">
+      <div className="lg:col-span-2 lg:block hidden text-zinc-50 p-4 bg-slate-950">
         <ProfileHeader
           coverImage={coverImagee}
           profileImage={userInfo.profileImage}
