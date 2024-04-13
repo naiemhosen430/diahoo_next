@@ -28,7 +28,7 @@ export default function AuthContexProvider({ children }) {
 
 
   return (
-    <AuthContex.Provider value={{ user: state.user, dispatch, dispatch }}>
+    <AuthContex.Provider value={{ user: state.user, dispatch }}>
       {children}
     </AuthContex.Provider>
   );

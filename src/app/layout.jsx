@@ -4,6 +4,7 @@ import AuthContexProvider from "@/Contexts/AuthContex";
 import Header from "@/app/Components/Shared/Header";
 import LeftSideBer from "./Components/Shared/LeftSideBer";
 import RightSideBer from "./Components/Shared/RightSideBer";
+import ProfileContextProvider from "@/Contexts/ProfileContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,8 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <div className="bg-[#1e1e1e]">
           <AuthContexProvider>
+            <ProfileContextProvider>
+
             <Header />
             <div className="grid grid-cols-7 p-4">
               <LeftSideBer />
@@ -27,6 +30,8 @@ export default function RootLayout({ children }) {
               </div>
               <RightSideBer />
             </div>
+            </ProfileContextProvider>
+
           </AuthContexProvider>
 
         </div>
