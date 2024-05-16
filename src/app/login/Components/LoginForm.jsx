@@ -1,13 +1,12 @@
 'use client'
 import { useState } from "react";
-
 import LoginFormData from "./LoginFormData";
-import UseLogin from "@/Hooks/UseLogin";
 import Link from "next/link";
+import UseAuthContext from "@/Hooks/UseAuthContext";
 
 function LoginForm() {
+  const {hyndleSignup, loading, error, setError} = UseAuthContext()
   const [formData, setFormData] = useState(LoginFormData);
-  const { login, error, setError } = UseLogin();
 
   const hundleOnchange = (e) => {
     const { name, value } = e.target;
@@ -23,7 +22,7 @@ function LoginForm() {
     if (formData.email === "" || formData.password === "") {
       setError("Every fields are required");
     } else {
-      await login(formData.email, formData.password);
+      await hyndleSignup({email:formData.email, password:formData.password});
     }
   };
 

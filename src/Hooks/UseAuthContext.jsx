@@ -32,22 +32,28 @@ export default function UseAuthContext() {
     setLoading(false);
 };
 
-const fatchMyData = async () => {
-  try {
-    const response = await getApiCall("/auth/me")
-    console.log(response?.data)
-    console.log(userAction.addMyData)
-    dispatch(userAction.addMyData, response?.data)
-  } catch (error) {
-    router.push("/login", { scroll: true });
-  }
-}
+  // for signup hundler 
+  const hundleLogin = async (data) => {
+    setLoading(true);
+    try {
+        const response = await postApiCall("/auth/login", data);
+        setCookie("accesstoken", response?.token);
+        console.log(response?.data)
+        dispatch(userAction.addMyData, response?.data)
+        router.push("/", { scroll: true });
+    } catch (error) {
+        setError(error.response?.data?.message || error.message);
+    }
+    setLoading(false);
+};
+
+
 
 
   return {
     hyndleSignup,
+    hundleLogin,
     loading, 
-    fatchMyData,
     setLoading,
     error, 
     setError

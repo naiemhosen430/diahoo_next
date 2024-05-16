@@ -19,10 +19,6 @@ export default function Header() {
   console.log({user})
   const [menuBox, setMenuBox] = useState(false);
 
-  useEffect(()=>{
-    fatchMyData()
-  },[])
-  
   // onclick hundler
   const toggleMenuBox = () => {
     if (menuBox === true) {

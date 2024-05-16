@@ -1,6 +1,7 @@
 import { userAction } from "@/actions/userAction";
 
 export const authReducer = (state, action) => {
+  console.log(state, action, userAction.addMyData)
     switch (action.type) {
       case userAction.addMyData:
         return { ...state, user: action.payload };
