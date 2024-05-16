@@ -16,13 +16,18 @@ export default function AuthContexProvider({ children }) {
   });
 
   useEffect(()=>{
-    if (cookieValue){
+    const fatchData = async () => {
       try {
-        const response = getApiCall("/auth/me")
+        const response = await getApiCall("/auth/me")
+        console.log(response?.data)
+        console.log(response)
         dispatch(userAction.addMyData, response?.data)
       } catch (error) {
         router.push("/login", { scroll: true });
       }
+    }
+    if (cookieValue){
+      fatchData()
     }
   },[])
 
