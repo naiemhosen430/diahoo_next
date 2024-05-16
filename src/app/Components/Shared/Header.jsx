@@ -14,6 +14,7 @@ export default function Header() {
   const [searchText, setSearchText] = useState("");
   const {state} = useContext(AuthContex)
   const user = state?.user
+  console.log({user})
   const [menuBox, setMenuBox] = useState(false);
 
   // onclick hundler

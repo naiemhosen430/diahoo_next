@@ -22,6 +22,7 @@ export default function UseAuthContext() {
     try {
         const response = await postApiCall("/auth/signup", data);
         setCookie("accesstoken", response?.token);
+        console.log(response?.data)
         dispatch(userAction.addMyData, response?.data)
         router.push("/", { scroll: true });
     } catch (error) {
