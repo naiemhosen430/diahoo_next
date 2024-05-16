@@ -5,7 +5,7 @@ export function middleware(request) {
   const path = request.nextUrl.pathname;
   const isPublicPath = path === "/login" || path === "/signup";
   const cookieStore = cookies();
-  const userCooki = cookieStore.get("user")?.value || null;
+  const userCooki = cookieStore.get("accesstoken")?.value || null;
   const cookiObjext = JSON.parse(userCooki)
 
   const accessToken = userCooki && cookiObjext?.token ? cookiObjext?.token : null;

@@ -1,13 +1,13 @@
 'use client'
 import { useState } from "react"
 import mformData from "./FormData"
-import UseSignUp from "@/Hooks/UseSignUp"
 import Link from "next/link"
+import UseAuthContext from "@/Hooks/UseAuthContext"
 
 
 
 function RegisterForm() {
-    const {signUp, loading, error, setError} = UseSignUp()
+    const {hyndleSignup, loading, error, setError} = UseAuthContext()
 
 const [formData, setFormData] = useState(mformData)
 
@@ -27,10 +27,8 @@ const hundleOnchange = (e) => {
     if (formData.email === "" || formData.password === "" || formData.name === "" || formData.confirmpassword === "") {
         setError("Every fields are required");
     } else {
-        console.log('calling api')
         if (formData.password === formData.confirmpassword){
-            console.log('calling api')
-            await signUp(formData.name, formData.email, formData.password);
+             hyndleSignup({name: formData.name, email: formData.email, password: formData.password});
         }else{
             setError("Confirm Password not matched!");
         }
@@ -41,7 +39,7 @@ const hundleOnchange = (e) => {
 
     return (
         <>
-        <div className="lg:w-6/12 lg:p-20 lg:py-0">
+        <div className="lg:py-0">
 
             <p className="text-center border rounded-lg text-white m-4">{error}</p>
             <div className="bg-slate-950 rounded-lg p-10 m-auto">
@@ -109,7 +107,7 @@ const hundleOnchange = (e) => {
                     onChange={hundleOnchange}
                      />
                 </div>
-                <input className="text-2xl px-5 py-2 bg-slate-800 rounded-lg cursor-pointer text-white font-bold" onClick={handleFormSubmit} type="button" value="Register" />
+                <input className="text-2xl px-5 py-2 bg-slate-800 rounded-lg cursor-pointer text-white font-bold" onClick={handleFormSubmit} type="button" value={loading ? "Processing...": "Register"} />
             </form>
 
             <div className="flex items-center p-10 text-white font-bold">
@@ -124,6 +122,7 @@ const hundleOnchange = (e) => {
                 className="text-white text-sm bg-slate-800 shadow-2xl p-2 px-4 rounded-2xl hover:text-white hover:underline"
                 href={"/login"}
               >
+                
                 Login now?
               </Link>
             </h1>

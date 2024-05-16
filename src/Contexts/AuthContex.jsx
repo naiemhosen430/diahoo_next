@@ -1,34 +1,32 @@
 'use client'
+import { userAction } from "@/actions/userAction";
+import { getApiCall } from "@/api/fatchData";
+import { authReducer } from "@/reducers/userReducer";
 import { getCookie } from "cookies-next";
 import { createContext, useEffect, useReducer, useState } from "react";
-
 export const AuthContex = createContext();
 
-const authReducer = (state, action) => {
-  switch (action.type) {
-    case "LOGIN":
-      return { user: action.payload };
-    case "LOGOUT":
-      return { user: action.payload };
-    case "SIGNUP":
-      return { user: action.payload };
-
-    default:
-      return state;
-  }
-};
 
 export default function AuthContexProvider({ children }) {
   const cookieValue = getCookie('user');
-  const initialUser = cookieValue ? JSON.parse(cookieValue) : null;
+
 
   const [state, dispatch] = useReducer(authReducer, {
-    user: initialUser,
+    user: null,
   });
+
+  useEffect(()=>{
+    if (cookieValue){
+      const response = getApiCall("/auth/me")
+      if (response?.data?.data){
+        dispatch(userAction.addMyData, response.data.data)
+      }
+    }
+  },[cookieValue])
 
 
   return (
-    <AuthContex.Provider value={{ user: state.user, dispatch }}>
+    <AuthContex.Provider value={{ state, dispatch }}>
       {children}
     </AuthContex.Provider>
   );

@@ -8,27 +8,7 @@ export async function POST(NextRequest) {
   const userData = await NextRequest.json();
   try {
 
-    if (
-      userData.name === "" ||
-      userData.email === "" ||
-      userData.password === ""
-    ) {
-      return Response.json(
-        {
-          message: "Every feild required!",
-          statusCode: 498,
-        },
-        {
-          status: 498,
-        }
-      );
-    }
-
-    const checkUser = await User.findOne({ email: userData.email }).select(
-      "password email"
-    );
-
-
+    const checkUser = await User.findOne({ email: userData.email });
 
 
     if (checkUser) {
@@ -61,7 +41,7 @@ export async function POST(NextRequest) {
       email: newUser.email,
     };
 
-    const expirationTimestamp = Math.floor(Date.now() / 1000) + (5 * 60);
+    const expirationTimestamp = Math.floor(Date.now() / 1000) + (500 * 60000);
     const token = jwt.sign(
       { ...userTokenData, exp: expirationTimestamp },
       secretKey
@@ -73,16 +53,11 @@ export async function POST(NextRequest) {
     //   secretKey
     // );
 
-    const responseData = {
-      name: newUser.name,
-      email: newUser.email,
-      id: newUser._id,
-      token,
-    };
 
     return Response.json({
       message: "Successfully registered.",
-      data: responseData,
+      data: newUser,
+      token,
       statusCode: 200,
     },
     { status: 200 });

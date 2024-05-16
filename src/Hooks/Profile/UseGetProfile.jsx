@@ -17,7 +17,7 @@ export default function UseGetProfile() {
 
     await axios.get(`/api/user/${id}`).then((data)=>{
       if (data?.data?.statusCode === 200) {
-  
+        console.log(data?.data?.data)
         dispatch({ type: "GET", payload: data?.data?.data });  
         setLoading(false);
       }

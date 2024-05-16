@@ -8,6 +8,7 @@ import UseGetProfile from "@/Hooks/Profile/UseGetProfile";
 function page() {
   const { user } = UseAuthContext();
     const { profile, loading, error, getProfile } = UseGetProfile(); 
+    console.log(profile)
 
     useEffect(() => {
         if (user) {

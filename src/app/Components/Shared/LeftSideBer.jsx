@@ -37,22 +37,36 @@ function LeftSideBer() {
     setShowmynoteboxalert(true);
   }
 
-  useEffect(() => {
-    const fatchData = async () => {
-      const data = await GetProfile();
-      setUserInfo({
-        profileImage: data.profilephoto,
-        fullName: data.fullname,
-        tittle: data.tittle,
-      });
-    };
+  // useEffect(() => {
+  //   const fatchData = async () => {
+  //     const data = await GetProfile();
+  //     setUserInfo({
+  //       profileImage: data.profilephoto,
+  //       fullName: data.fullname,
+  //       tittle: data.tittle,
+  //     });
+  //   };
 
-    fatchData();
-  }, []);
+  //   fatchData();
+  // }, []);
 
   const coverImagee = false;
   if (!user){
-    return null
+    return (
+      <div className="lg:col-span-2 lg:block hidden text-zinc-50 p-4">
+          <div className="lg:block p-5 lg:mr-0 ">
+          <h1 className="text-slate-500 lg:text-3xl text-2xs font-bold text-center">
+            Welcome back to Diahoo
+          </h1>
+          <p className="text-slate-600 lg:block hidden p-5">
+            Welcome back to diahoo of your digital life! 🌐 Log in to reconnect
+            with friends, share your latest adventures, and stay in the loop
+            with the moments that matter most. Your community awaits—let's dive
+            back into the conversation! #StayConnected 📱💬
+          </p>
+        </div>
+      </div>
+    )
   }
   return (
     <>
