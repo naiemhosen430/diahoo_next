@@ -2,7 +2,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import ProfileHeader from "../CommonComponents/ProfileHeader";
 import ButtonBox from "../CommonComponents/ButtonBox";
-import UseAuthContext from "@/Hooks/UseAuthContext";
 import CreatePost from "../CommonComponents/Post/CreatePost";
 import CreateNote from "../CommonComponents/Note/CreateNote";
 import MyNote from "../CommonComponents/Note/MyNote";

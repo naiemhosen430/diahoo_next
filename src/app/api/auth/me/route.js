@@ -5,11 +5,10 @@ import { dbconnect } from "@/Utils/mongo";
 export async function GET(Request) {
   await dbconnect();
 
-  const data = getMyData()
+  const mydata = getMyData()
 
   try {
-      const data = await User.findOne({ _id: id });
-      console.log(data)
+      const data = await User.findOne({ _id: mydata?.userId });
     
       if (!data) {
         return Response.json(

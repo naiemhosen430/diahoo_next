@@ -8,7 +8,7 @@ export const AuthContex = createContext();
 
 
 export default function AuthContexProvider({ children }) {
-  const cookieValue = getCookie('user');
+  const cookieValue = getCookie('accesstoken');
 
 
   const [state, dispatch] = useReducer(authReducer, {
@@ -17,12 +17,14 @@ export default function AuthContexProvider({ children }) {
 
   useEffect(()=>{
     if (cookieValue){
-      const response = getApiCall("/auth/me")
-      if (response?.data?.data){
-        dispatch(userAction.addMyData, response.data.data)
+      try {
+        const response = getApiCall("/auth/me")
+        dispatch(userAction.addMyData, response?.data)
+      } catch (error) {
+        router.push("/login", { scroll: true });
       }
     }
-  },[cookieValue])
+  },[])
 
 
   return (
