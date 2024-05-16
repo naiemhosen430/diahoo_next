@@ -1,17 +1,19 @@
 "use client";
 import UseAuthContext from "@/Hooks/UseAuthContext";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { BsChatRightTextFill, BsPeopleFill } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import { AiTwotoneSetting } from "react-icons/ai";
 
 import { MdReorder } from "react-icons/md";
+import { AuthContex } from "@/Contexts/AuthContex";
 
 export default function Header() {
   const [searchText, setSearchText] = useState("");
-  const {user,dispatch}=UseAuthContext()
+  const {state} = useContext(AuthContex)
+  const user = state?.user
   const [menuBox, setMenuBox] = useState(false);
 
   // onclick hundler

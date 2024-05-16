@@ -1,15 +1,17 @@
 'use client'
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import ProfileHeader from "../CommonComponents/ProfileHeader";
 import ButtonBox from "../CommonComponents/ButtonBox";
 import UseAuthContext from "@/Hooks/UseAuthContext";
 import CreatePost from "../CommonComponents/Post/CreatePost";
 import CreateNote from "../CommonComponents/Note/CreateNote";
 import MyNote from "../CommonComponents/Note/MyNote";
+import { AuthContex } from "@/Contexts/AuthContex";
 
 
 function LeftSideBer() {
-  const {user,dispatch}=UseAuthContext()
+  const {state} = useContext(AuthContex)
+  const user = state?.user
   const [userInfo, setUserInfo] = useState({
     profileImage: "",
     fullName: "",
