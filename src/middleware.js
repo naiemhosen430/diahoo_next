@@ -10,7 +10,7 @@ export function middleware(request) {
 
 
   if (isPublicPath && accessToken) {
-    return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
+    return NextResponse.redirect(new URL("/", request.nextUrl));
   }
 
   if (!isPublicPath && !accessToken) {
@@ -20,5 +20,5 @@ export function middleware(request) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/login", "/dashboard", "/signup", "/"],
+  matcher: ["/login", "/signup", "/"],
 };

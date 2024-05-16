@@ -1,5 +1,6 @@
 'use client'
 import React, { useEffect, useState } from "react";
+import Post from "./CommonComponents/Post/Post";
 
 
 export default function Feed() {
