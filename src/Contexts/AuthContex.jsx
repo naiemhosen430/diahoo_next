@@ -15,22 +15,6 @@ export default function AuthContexProvider({ children }) {
     user: null,
   });
 
-  useEffect(()=>{
-    const fatchData = async () => {
-      try {
-        const response = await getApiCall("/auth/me")
-        console.log(response?.data)
-        console.log(response)
-        dispatch(userAction.addMyData, response?.data)
-      } catch (error) {
-        router.push("/login", { scroll: true });
-      }
-    }
-    if (cookieValue){
-      fatchData()
-    }
-  },[])
-
 
   return (
     <AuthContex.Provider value={{ state, dispatch }}>

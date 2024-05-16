@@ -31,10 +31,21 @@ export default function UseAuthContext() {
     setLoading(false);
 };
 
+const fatchMyData = async () => {
+  try {
+    const response = await getApiCall("/auth/me")
+    console.log(response?.data)
+    console.log(response)
+    dispatch(userAction.addMyData, response?.data)
+  } catch (error) {
+    router.push("/login", { scroll: true });
+  }
+}
 
   return {
     hyndleSignup,
     loading, 
+    fatchMyData,
     setLoading,
     error, 
     setError

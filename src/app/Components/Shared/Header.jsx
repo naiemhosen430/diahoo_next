@@ -1,7 +1,7 @@
 "use client";
 import UseAuthContext from "@/Hooks/UseAuthContext";
 import Link from "next/link";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { BsChatRightTextFill, BsPeopleFill } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
@@ -12,11 +12,15 @@ import { AuthContex } from "@/Contexts/AuthContex";
 
 export default function Header() {
   const [searchText, setSearchText] = useState("");
+  const {fatchMyData} = UseAuthContext()
   const {state} = useContext(AuthContex)
   const user = state?.user
-  console.log({user})
   const [menuBox, setMenuBox] = useState(false);
 
+  useEffect(()=>{
+    fatchMyData()
+  },[])
+  
   // onclick hundler
   const toggleMenuBox = () => {
     if (menuBox === true) {
