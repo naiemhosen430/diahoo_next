@@ -5,10 +5,9 @@ export function middleware(request) {
   const path = request.nextUrl.pathname;
   const isPublicPath = path === "/login" || path === "/signup";
   const cookieStore = cookies();
-  const userCooki = cookieStore.get("accesstoken")?.value || null;
-  const cookiObjext = JSON.parse(userCooki)
+  const accessToken = cookieStore.get("accesstoken")?.value || null;
 
-  const accessToken = userCooki && cookiObjext?.token ? cookiObjext?.token : null;
+
 
   if (isPublicPath && accessToken) {
     return NextResponse.redirect(new URL("/dashboard", request.nextUrl));

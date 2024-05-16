@@ -4,8 +4,10 @@ import { userAction } from "@/actions/userAction";
 import { postApiCall } from "@/api/fatchData";
 import { setCookie } from "cookies-next";
 import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function UseAuthContext() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const {state, dispatch} = useContext(AuthContex);
@@ -19,9 +21,9 @@ export default function UseAuthContext() {
     setLoading(true);
     try {
         const response = await postApiCall("/api/auth/signup", data);
-        setCookie("accesstoken", JSON.stringify(response?.token));
+        setCookie("accesstoken", response?.token);
         dispatch(userAction.addMyData, response?.data)
-        // handleResponse(response);
+        router.push("/", { scroll: true });
     } catch (error) {
         setError(error.response?.data?.message || error.message);
     }
