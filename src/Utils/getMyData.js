@@ -1,4 +1,5 @@
 const { cookies } = require("next/headers");
+import jwt from "jsonwebtoken";
 
 export const getMyData = () => {
     // checking authentication 

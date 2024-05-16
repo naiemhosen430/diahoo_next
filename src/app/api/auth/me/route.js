@@ -2,6 +2,7 @@ import User from "@/Models/User.Model";
 import { getMyData } from "@/Utils/getMyData";
 import { dbconnect } from "@/Utils/mongo";
 
+
 export async function GET(Request) {
   await dbconnect();
 
