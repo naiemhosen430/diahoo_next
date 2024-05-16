@@ -90,8 +90,6 @@ const userSchema = Schema(
     password: {
       type: String,
       required: true,
-      minlength: [5, `The password                                                                                                                                                                                                                                                                                                                                                  must be at least 5 characters long.`],
-      maxlength: [20, `The password                                                                                                                                                                                                                                                                                                                                                  must not be more then 20 characters.`],
     },
     verificationCode: {
       type: Number,
