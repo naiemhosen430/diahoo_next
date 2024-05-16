@@ -20,7 +20,7 @@ export default function UseAuthContext() {
   const hyndleSignup = async (data) => {
     setLoading(true);
     try {
-        const response = await postApiCall("/api/auth/signup", data);
+        const response = await postApiCall("/auth/signup", data);
         setCookie("accesstoken", response?.token);
         dispatch(userAction.addMyData, response?.data)
         router.push("/", { scroll: true });
