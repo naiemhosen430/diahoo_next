@@ -2,7 +2,7 @@
 import { AuthContex } from "@/Contexts/AuthContex";
 import { userAction } from "@/actions/userAction";
 import { postApiCall } from "@/api/fatchData";
-import { setCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -42,6 +42,7 @@ const fatchMyData = async () => {
     router.push("/login", { scroll: true });
   }
 }
+
 
   return {
     hyndleSignup,

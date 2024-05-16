@@ -2,7 +2,6 @@
 import { userAction } from "@/actions/userAction";
 import { getApiCall } from "@/api/fatchData";
 import { authReducer } from "@/reducers/userReducer";
-import { getCookie } from "cookies-next";
 import { createContext, useEffect, useReducer, useState } from "react";
 export const AuthContex = createContext();
 
