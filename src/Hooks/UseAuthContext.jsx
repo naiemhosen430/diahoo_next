@@ -11,6 +11,7 @@ export default function UseAuthContext() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const {state, dispatch} = useContext(AuthContex);
+  const cookieValue = getCookie('accesstoken');
 
   if (!state || !dispatch) {
     throw Error("Application Error");
@@ -35,7 +36,7 @@ const fatchMyData = async () => {
   try {
     const response = await getApiCall("/auth/me")
     console.log(response?.data)
-    console.log(response)
+    console.log(userAction.addMyData)
     dispatch(userAction.addMyData, response?.data)
   } catch (error) {
     router.push("/login", { scroll: true });

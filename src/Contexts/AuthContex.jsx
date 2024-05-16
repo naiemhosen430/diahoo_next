@@ -8,7 +8,7 @@ export const AuthContex = createContext();
 
 
 export default function AuthContexProvider({ children }) {
-  const cookieValue = getCookie('accesstoken');
+
 
 
   const [state, dispatch] = useReducer(authReducer, {
