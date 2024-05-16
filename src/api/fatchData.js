@@ -3,7 +3,7 @@ import axios from "axios"
 // For calling any get api
 export const getApiCall = async (url) => {
     try {
-        const response = await axios.get(`/api/${url}`);
+        const response = await axios.get(`/api${url}`);
         return response.data;
     } catch (error) {
         throw error;
