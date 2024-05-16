@@ -14,7 +14,9 @@ export default function Header() {
   const [searchText, setSearchText] = useState("");
   const {fatchMyData} = UseAuthContext()
   const {state} = useContext(AuthContex)
+  console.log({state})
   const user = state?.user
+  console.log({user})
   const [menuBox, setMenuBox] = useState(false);
 
   useEffect(()=>{
