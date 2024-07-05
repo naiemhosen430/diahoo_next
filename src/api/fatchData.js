@@ -1,4 +1,4 @@
-import { handleError } from "@/utils/hundleError";
+import { handleError } from "@/Utils/hundleError.jsx";
 import axiosInstance from "./axiosConfig.js";
 
 // For calling any get api
