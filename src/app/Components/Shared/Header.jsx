@@ -12,11 +12,11 @@ import { AuthContex } from "@/Contexts/AuthContex";
 
 export default function Header() {
   const [searchText, setSearchText] = useState("");
-  const {fatchMyData} = UseAuthContext()
-  const {state} = useContext(AuthContex)
-  console.log({state})
-  const user = state?.user
-  console.log({user})
+  const { fatchMyData } = UseAuthContext();
+  const { state } = useContext(AuthContex);
+  console.log({ state });
+  const user = state?.user;
+  console.log({ user });
   const [menuBox, setMenuBox] = useState(false);
 
   // onclick hundler
@@ -34,7 +34,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="flex sticky text-slate-300 bg-[#5E1607] menu-item-color top-0 nav-bg z-10 justify-center items-center py-2 px-4">
+      <div className="flex fixed w-full text-slate-300 bg-[#242526] menu-item-color top-0 nav-bg z-10 justify-center items-center py-2 px-4">
         <div className="lg:w-3/12 w-10/12">
           <Link href={"/"} className="font-bold block text-xl">
             <span className="block text-3xl w-1/6 text-white bolder text-3lg">
@@ -43,81 +43,75 @@ export default function Header() {
           </Link>
         </div>
 
-
         <div className="lg:w-9/12 hidden lg:flex justify-end  text-right">
           {user ? (
-        <>
-          <div className="w-10/6">
-            <ul className="flex items-center">
-              <li className="w-1/5 block px-10">
-                <Link href={"/"}>
-                  <FaHome className="text-white text-2xl" />
+            <>
+              <div className="w-10/6">
+                <ul className="flex items-center">
+                  <li className="w-1/5 block px-10">
+                    <Link href={"/"}>
+                      <FaHome className="text-white text-2xl" />
+                    </Link>
+                  </li>
+                  <li className="w-1/5 block px-10">
+                    <Link href={`/message`}>
+                      <BsChatRightTextFill className="text-white text-xl" />
+                    </Link>
+                  </li>
+                  <li className="w-1/5 block px-10">
+                    <Link href={"/myprofile"}>
+                      <CgProfile className="text-white text-xl" />
+                    </Link>
+                  </li>
+                  <li className="w-1/5 block px-10">
+                    <Link href={"/friend"}>
+                      <BsPeopleFill className="text-white text-xl" />
+                    </Link>
+                  </li>
+                  <li className="w-1/5 block px-10">
+                    <Link href={"/setting"}>
+                      <AiTwotoneSetting className="text-white text-xl" />
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+              <div className="w-2/6 flex items-center justify-end">
+                <input
+                  className="px-4 py-2 bg-black border-l-rose-600 text-white rounded-xl shadow w-4/6"
+                  type="search"
+                  name="searchValu"
+                  id="searchValu"
+                  placeholder="Search your key word...."
+                  value={searchText}
+                  onChange={handleSearchInputChange}
+                />
+                <Link href={`/search/${searchText}`}>
+                  <button
+                    className="bg-slate-700 text-rose-50 rounded-xl shadow py-2 px-4"
+                    type="button"
+                  >
+                    Search
+                  </button>
                 </Link>
-              </li>
-              <li className="w-1/5 block px-10">
-                <Link href={`/message`}>
-                  <BsChatRightTextFill className="text-white text-xl" />
-                </Link>
-              </li>
-              <li className="w-1/5 block px-10">
-                <Link href={"/myprofile"}>
-                  <CgProfile className="text-white text-xl" />
-                </Link>
-              </li>
-              <li className="w-1/5 block px-10">
-                <Link href={"/friend"}>
-                  <BsPeopleFill className="text-white text-xl" />
-                </Link>
-              </li>
-              <li className="w-1/5 block px-10">
-                <Link href={"/setting"}>
-                  <AiTwotoneSetting className="text-white text-xl" />
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="w-2/6 flex items-center justify-end">
-            <input
-              className="px-4 py-2 bg-black border-l-rose-600 text-white rounded-xl shadow w-4/6"
-              type="search"
-              name="searchValu"
-              id="searchValu"
-              placeholder="Search your key word...."
-              value={searchText}
-              onChange={handleSearchInputChange}
-            />
-            <Link href={`/search/${searchText}`}>
-              <button
-                className="bg-slate-700 text-rose-50 rounded-xl shadow py-2 px-4"
-                type="button"
+              </div>
+            </>
+          ) : (
+            <>
+              <Link
+                className="py-2 mx-4 hidden px-8 lg:inline-block rounded-md shadow-md bg-transparent nav-booking-btn font-bold"
+                href={"/signup"}
               >
-                Search
-              </button>
-            </Link>
-          </div>
+                Join
+              </Link>
 
-      </>
-          
-          ):(
-<>
-
-<Link
-            className="py-2 mx-4 hidden px-8 lg:inline-block rounded-md shadow-md hover:bg-slate-700 bg-transparent border hover:border-0 nav-booking-btn font-bold"
-            href={"/signup"}
-          >
-            Join
-          </Link>
-
-          <Link
-            className="py-2 mx-4 hidden px-8 lg:inline-block rounded-md shadow-md hover:bg-slate-700 bg-transparent border hover:border-0 nav-booking-btn font-bold"
-            href={"/login"}
-          >
-            Login
-          </Link>
-</>
-
+              <Link
+                className="py-2 mx-4 hidden px-8 lg:inline-block rounded-md shadow-md bg-transparent nav-booking-btn font-bold"
+                href={"/login"}
+              >
+                Login
+              </Link>
+            </>
           )}
-
         </div>
 
         <div
@@ -134,7 +128,7 @@ export default function Header() {
 
           <div className="space-x-4 text-center py-10">
             <Link
-              className="py-2 px-4 block w-full rounded-md shadow-md hover:bg-slate-700 bg-slate-500 nav-booking-btn font-bold"
+              className="py-2 px-4 block w-full rounded-md shadow-md bg-slate-500 nld"
               href={"/dashbord/help"}
               onClick={toggleMenuBox}
             >

@@ -1,11 +1,11 @@
-'use client'
+"use client";
 import { useState } from "react";
 import LoginFormData from "./LoginFormData";
 import Link from "next/link";
 import UseAuthContext from "@/Hooks/UseAuthContext";
 
 function LoginForm() {
-  const {hyndleSignup, loading, error, setError} = UseAuthContext()
+  const { hyndleSignup, loading, error, setError } = UseAuthContext();
   const [formData, setFormData] = useState(LoginFormData);
 
   const hundleOnchange = (e) => {
@@ -16,22 +16,25 @@ function LoginForm() {
     }));
   };
 
-  
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (formData.email === "" || formData.password === "") {
       setError("Every fields are required");
     } else {
-      await hyndleSignup({email:formData.email, password:formData.password});
+      await hyndleSignup({
+        email: formData.email,
+        password: formData.password,
+      });
     }
   };
 
-
-
   return (
     <>
-      <div className="lg:w-6/12 lg:p-20  lg:py-0">
-        <p className="text-center border rounded-lg text-white m-4">{error}</p>
+      <div className="">
+        {error && (
+
+          <p className="text-center border rounded-lg text-white m-4">{error}</p>
+        )}
         <form className="bg-slate-950 rounded-lg p-10 m-auto">
           <h1 className="text-3xl py-10 pt-0 text-slate-400 p-4 font-bold text-center">
             Login here

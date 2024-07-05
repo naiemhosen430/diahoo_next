@@ -12,7 +12,6 @@ export default function Page() {
   const { login, loading, error } = UseLogin();
   const [errorBox, setErrorBox] = useState(false);
 
-
   const closeErrorBox = () => {
     setErrorBox(false);
   };
@@ -21,10 +20,8 @@ export default function Page() {
     <>
       {loading && <Spinner />}
 
-      <div className="col-span-12">
-        <div className="lg:flex justify-center">
+      <div className="p-10 py-5">
           <LoginForm />
-        </div>
       </div>
     </>
   );
