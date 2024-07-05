@@ -11,7 +11,7 @@ console.log(apiBaseURL);
 
 // Create Axios instance
 const axiosInstance = axios.create({
-  baseURL: "https://api-diahoo.vercel.app",
+  baseURL: "http://localhost:5000",
   headers: {
     "Content-Type": "application/json",
     ...(token && { Authorization: `Bearer ${token}` }),

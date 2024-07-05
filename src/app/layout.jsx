@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
           <AuthContexProvider>
             <ProfileContextProvider>
               <Header />
-              <div className="grid w-full overflow-hidden grid-cols-7 h-screen pt-16">
+              <div className="grid w-full overflow-hidden grid-cols-7 h-screen lg:pt-24 pt-28">
                 <div className="lg:col-span-2 overflow-hidden col-span-12">
                   <LeftSideBer />
                 </div>

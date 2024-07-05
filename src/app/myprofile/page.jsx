@@ -1,6 +1,5 @@
 "use client";
 
-
 function page() {
   // const user = null;
   // const { profile, loading, error, getProfile } = UseGetProfile();

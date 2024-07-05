@@ -18,16 +18,16 @@ export default function AuthContexProvider({ children }) {
   const token = getCookie("accesstoken");
 
   const [state, dispatch] = useReducer(authReducer, {
-    me: null,
+    user: null,
   });
 
   useEffect(() => {
-    if (token && !state?.me) {
+    if (token && !state?.user) {
       const fetchData = async () => {
         try {
           const response = await getApiCall("auth/me");
           if (response?.statusCode === 200 && response?.data) {
-            dispatch({ type: "ADD_AUTHDATA", payload: response?.data });
+            dispatch({ type: "ADD_AUTH_DATA", payload: response?.data });
           }
         } catch (error) {}
       };

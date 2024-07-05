@@ -11,8 +11,6 @@ export default function ProfileBody() {
   const [myInfShow, setMyInfoShow] = useState(false);
   const [myPost, setMypost] = useState([]);
 
-
-
   // hu8ndle onclick
   const showMyInfoBox = () => {
     setMyInfoShow(true);

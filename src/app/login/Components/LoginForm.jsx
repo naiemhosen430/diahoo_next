@@ -93,7 +93,7 @@ function LoginForm() {
                 className="text-xl px-5 py-2 bg-slate-800 rounded-lg cursor-pointer text-white font-bold"
                 onClick={handleFormSubmit}
                 type="button"
-                value="Login"
+                value={loading ? "Loading" : "Login"}
               />
               <h1 className="lg:px-5 px-2">
                 <Link

@@ -252,7 +252,9 @@ function RegisterForm() {
   return (
     <div className="lg:py-0">
       {message && (
-        <p className="text-center border rounded-lg text-white m-4">{message}</p>
+        <p className="text-center border rounded-lg text-white m-4">
+          {message}
+        </p>
       )}
       <div
         className="bg-slate-950 rounded-lg p-10 m-auto"
