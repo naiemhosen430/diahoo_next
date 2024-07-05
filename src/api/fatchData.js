@@ -21,7 +21,9 @@ export const postApiCall = async (url, data) => {
     handleError(error);
     return {
       success: false,
-      message: "An error occurred while processing your request.",
+      message: 
+      error?.response?.data?.message
+      ,
     };
   }
 };

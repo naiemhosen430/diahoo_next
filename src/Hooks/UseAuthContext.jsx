@@ -1,61 +1,94 @@
 "use client";
-import { AuthContex } from "@/Contexts/AuthContex";
-import { userAction } from "@/actions/userAction";
-import { postApiCall } from "@/api/fatchData";
-import { getCookie, setCookie } from "cookies-next";
 import { useContext, useState } from "react";
+import { getApiCall, patchApiCall, postApiCall } from "@/api/fatchData";
+import { setCookie } from "cookies-next";
+import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { AuthContex } from "@/Contexts/AuthContex";
 
 export default function UseAuthContext() {
+  const [loading, setLoading] = useState(false);
+  const authContext = useContext(AuthContex);
+  const { state, dispatch } = useContext(AuthContex);
+  const [message, setMessage] = useState(false);
+  const { alluser } = state;
   const router = useRouter();
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const {state, dispatch} = useContext(AuthContex);
-  const cookieValue = getCookie('accesstoken');
 
-  if (!state || !dispatch) {
-    throw Error("Application Error");
+  if (!authContext) {
+    throw new Error("Application Error");
   }
 
-  // for signup hundler 
-  const hyndleSignup = async (data) => {
+  // for loging
+  const handleAuth = async (data, action) => {
     setLoading(true);
     try {
-        const response = await postApiCall("/auth/signup", data);
+      const response = await postApiCall(`auth/${action}`, data);
+      if (response?.statusCode === 200) {
         setCookie("accesstoken", response?.token);
-        console.log(response?.data)
-        dispatch(userAction.addMyData, response?.data)
+        dispatch({ type: "ADD_AUTH_DATA", payload: response?.data || null });
+        toast.success(
+          `${action.charAt(0).toUpperCase() + action.slice(1)} successful!`
+        );
+        setMessage(response?.message);
         router.push("/", { scroll: true });
+      }
+      setMessage(response?.message);
     } catch (error) {
-        setError(error.response?.data?.message || error.message);
+      setMessage(error?.message);
+      toast.error(
+        error.response?.data?.message || "Signup failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-};
+  };
 
-  // for signup hundler 
-  const hundleLogin = async (data) => {
+  // for updating profile
+  const hundleUpdateProfile = async (data) => {
     setLoading(true);
     try {
-        const response = await postApiCall("/auth/login", data);
-        setCookie("accesstoken", response?.token);
-        console.log(response?.data)
-        dispatch(userAction.addMyData, response?.data)
-        router.push("/", { scroll: true });
+      const response = await patchApiCall(`auth/update`, data);
+      if (response?.statusCode === 200) {
+        dispatch({ type: "ADD_AUTHDATA", payload: response?.data || null });
+        toast.success(response.message);
+        setMessage(true);
+      }
     } catch (error) {
-        setError(error.response?.data?.message || error.message);
+      toast.error(
+        error.response?.data?.message ||
+          "Update profile failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-};
+  };
 
-
-
+  // for get all user
+  const hundleGetAllUsers = async () => {
+    setLoading(true);
+    try {
+      const response = await getApiCall(`user`, data);
+      if (
+        response?.statusCode === 200 &&
+        alluser?.length !== response?.data?.length
+      ) {
+        dispatch({ type: "ADD_AUTHDATA", payload: response?.data || null });
+        toast.success(response.message);
+      }
+    } catch (error) {
+      // toast.error(error.response?.data?.message || "Signup failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return {
-    hyndleSignup,
-    hundleLogin,
-    loading, 
     setLoading,
-    error, 
-    setError
+    handleAuth,
+    hundleGetAllUsers,
+    loading,
+    setMessage,
+    message,
+    hundleUpdateProfile,
   };
 }

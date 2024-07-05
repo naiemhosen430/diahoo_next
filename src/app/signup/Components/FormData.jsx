@@ -1,9 +1,9 @@
 const formData = {
-    name: "",
-    birthday: "",
-    email: "",
-    password: "",
-    confirmpassword: ""
-}
+  fullname: "",
+  birthday: "",
+  email: "",
+  password: "",
+  gender: "",
+};
 
 export default formData;
