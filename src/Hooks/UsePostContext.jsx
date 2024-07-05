@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { AuthContex } from "@/Contexts/AuthContex";
 
-export default function UseAuthContext() {
+export default function UsePostContext() {
   const [loading, setLoading] = useState(false);
   const authContext = useContext(AuthContex);
   const { state, dispatch } = useContext(AuthContex);

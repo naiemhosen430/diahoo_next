@@ -5,10 +5,10 @@ import AuthContexProvider from "@/Contexts/AuthContex";
 import Header from "@/app/Components/Shared/Header";
 import LeftSideBer from "./Components/Shared/LeftSideBer";
 import RightSideBer from "./Components/Shared/RightSideBer";
-import ProfileContextProvider from "@/Contexts/ProfileContext";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import PostsContextProvider from "@/Contexts/PostContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <div className="bg-[#1e1e1e]">
           <AuthContexProvider>
-            <ProfileContextProvider>
+            <PostsContextProvider>
               <Header />
               <div className="grid w-full overflow-hidden grid-cols-7 h-screen lg:pt-24 pt-28">
                 <div className="lg:col-span-2 overflow-hidden col-span-12">
@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
                   <RightSideBer />
                 </div>
               </div>
-            </ProfileContextProvider>
+            </PostsContextProvider>
           </AuthContexProvider>
         </div>
       </body>

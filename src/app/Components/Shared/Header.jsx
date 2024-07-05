@@ -134,27 +134,27 @@ export default function Header() {
             <>
               <div className="w-10/6">
                 <ul className="flex items-center justify-between pt-4">
-                  <li className="w-1/5 block px-4">
+                  <li className="block px-4">
                     <Link href={"/"}>
                       <FaHome className="text-white text-2xl" />
                     </Link>
                   </li>
-                  <li className="w-1/5 block px-4">
+                  <li className="block px-4">
                     <Link href={`/message`}>
                       <BsChatRightTextFill className="text-white text-xl" />
                     </Link>
                   </li>
-                  <li className="w-1/5 block px-4">
+                  <li className="block px-4">
                     <Link href={"/myprofile"}>
                       <CgProfile className="text-white text-xl" />
                     </Link>
                   </li>
-                  <li className="w-1/5 block px-4">
+                  <li className="block px-4">
                     <Link href={"/friend"}>
                       <BsPeopleFill className="text-white text-xl" />
                     </Link>
                   </li>
-                  <li className="w-1/5 block px-4">
+                  <li className="block px-4">
                     <Link href={"/setting"}>
                       <AiTwotoneSetting className="text-white text-xl" />
                     </Link>
@@ -183,7 +183,10 @@ export default function Header() {
       </div>
 
       {menuBox && (
-        <div className="h-screen text-slate-400 z-20" data-aos="fade-right">
+        <div
+          className="h-screen fixed top-0 left-0 text-slate-400 z-20"
+          data-aos="fade-right"
+        >
           <div className="shadow-md rounded-md"></div>
 
           <div className="space-x-4 text-center py-10">
