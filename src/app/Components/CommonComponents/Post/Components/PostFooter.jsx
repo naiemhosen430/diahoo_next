@@ -62,7 +62,7 @@ export default function PostFooter({
 
   // like post
   const likepost = async () => {
-    const token = g""
+    const token = ""
     const data = decodeToken(token);
 
     await api
