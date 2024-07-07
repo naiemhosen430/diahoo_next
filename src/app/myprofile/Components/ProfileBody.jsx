@@ -25,20 +25,20 @@ export default function ProfileBody() {
     <>
       <div className="flex p-4 space-x-2">
         <button
-          className="w-2/6 bg-slate-700 text-white py-2 text-sm px-4 rounded-md shadow-md flex items-center space-x-2"
+          className="w-2/6 bg-slate-700 text-white py-2 lg:text-sm text-[10px]lg: px-4 lg:px-2 rounded-md shadow-md flex items-center space-x-2"
           type="button"
         >
           <IoMdAdd />
           <span>Share Something</span>
         </button>
         <button
-          className="w-2/6 bg-slate-700 text-white py-2 text-sm px-4 rounded-md shadow-md flex items-center space-x-2"
+          className="w-2/6 bg-slate-700 text-white py-2 lg:text-sm text-[10px]lg: px-4 lg:px-2 rounded-md shadow-md flex items-center space-x-2"
           type="button"
         >
           <AiFillEdit /> <span>Edit Profile</span>
         </button>
         <button
-          className="w-2/6 bg-slate-700 text-white py-2 text-sm px-4 rounded-md shadow-md flex items-center space-x-2"
+          className="w-2/6 bg-slate-700 text-white py-2 lg:text-sm text-[10px]lg: px-4 lg:px-2 rounded-md shadow-md flex items-center space-x-2"
           type="button"
         >
           <GiNotebook />

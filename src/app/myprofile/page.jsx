@@ -1,34 +1,27 @@
 "use client";
+import React, { useContext } from "react";
+import { AuthContex } from "@/Contexts/AuthContex";
+import ProfileHeader from "../Components/CommonComponents/ProfileHeader";
+import ProfileBody from "./Components/ProfileBody";
 
 function page() {
-  // const user = null;
-  // const { profile, loading, error, getProfile } = UseGetProfile();
-  // console.log(profile);
+  const { state, dispatch } = useContext(AuthContex);
+  const { user } = state;
 
-  // useEffect(() => {
-  //   if (user) {
-  //     getProfile(user.id);
-  //   }
-  // }, [user]);
+  if (!user) {
+    return <h1 className="text-white text-center">Loading....</h1>;
+  }
 
-  // if (loading || !profile) {
-  //   return <h1 className="text-white text-center">Loading....</h1>;
-  // }
-
-  // if (error) {
-  //   return <h1 className="text-white text-center">Error: {error}</h1>;
-  // }
   return (
     <div className=" h-screen overflow-y-auto custom-scrollbar-hidden bg-slate-950 mx-2">
-      {/* <ProfileHeader
-        coverImage={profile?.coverImage}
-        profileImage={profile?.profileImage}
-        fullName={profile?.fullName}
-        tittle={profile?.tittle}
+      <ProfileHeader
+        coverImage={user?.coverImage}
+        profileImage={user?.profileImage}
+        fullName={user?.fullName}
+        tittle={user?.tittle}
       />
 
-      <ProfileBody /> */}
-      hello
+      <ProfileBody />
     </div>
   );
 }

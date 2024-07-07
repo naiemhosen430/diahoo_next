@@ -10,8 +10,8 @@ export default function UseAuthContext() {
   const [loading, setLoading] = useState(false);
   const authContext = useContext(AuthContex);
   const { state, dispatch } = useContext(AuthContex);
+  const { user } = state;
   const [message, setMessage] = useState(false);
-  const { alluser } = state;
   const router = useRouter();
 
   if (!authContext) {
@@ -70,7 +70,7 @@ export default function UseAuthContext() {
       const response = await getApiCall(`user`, data);
       if (
         response?.statusCode === 200 &&
-        alluser?.length !== response?.data?.length
+        user?.length !== response?.data?.length
       ) {
         dispatch({ type: "ADD_AUTHDATA", payload: response?.data || null });
         toast.success(response.message);

@@ -1,78 +1,32 @@
 "use client";
 import { useContext, useState } from "react";
 import { getApiCall, patchApiCall, postApiCall } from "@/api/fatchData";
-import { setCookie } from "cookies-next";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { AuthContex } from "@/Contexts/AuthContex";
+import { PostsContex } from "@/Contexts/PostContext";
 
 export default function UsePostContext() {
   const [loading, setLoading] = useState(false);
-  const authContext = useContext(AuthContex);
-  const { state, dispatch } = useContext(AuthContex);
+  const PostsContext = useContext(PostsContex);
+  const { state, dispatch } = useContext(PostsContex);
   const [message, setMessage] = useState(false);
-  const { alluser } = state;
+  const { posts } = state;
   const router = useRouter();
 
-  if (!authContext) {
+  if (!PostsContext) {
     throw new Error("Application Error");
   }
 
-  // for loging
-  const handleAuth = async (data, action) => {
-    setLoading(true);
-    try {
-      const response = await postApiCall(`auth/${action}`, data);
-      if (response?.statusCode === 200) {
-        setCookie("accesstoken", response?.token);
-        dispatch({ type: "ADD_AUTH_DATA", payload: response?.data || null });
-        toast.success(
-          `${action.charAt(0).toUpperCase() + action.slice(1)} successful!`
-        );
-        router.push("/", { scroll: true });
-        setMessage(response?.message);
-      }
-      setMessage(response?.message);
-    } catch (error) {
-      setMessage(error?.message);
-      toast.error(
-        error.response?.data?.message || "Signup failed. Please try again."
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // for updating profile
-  const hundleUpdateProfile = async (data) => {
-    setLoading(true);
-    try {
-      const response = await patchApiCall(`auth/update`, data);
-      if (response?.statusCode === 200) {
-        dispatch({ type: "ADD_AUTHDATA", payload: response?.data || null });
-        toast.success(response.message);
-        setMessage(true);
-      }
-    } catch (error) {
-      toast.error(
-        error.response?.data?.message ||
-          "Update profile failed. Please try again."
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-
   // for get all user
-  const hundleGetAllUsers = async () => {
+  const getPost = async () => {
     setLoading(true);
     try {
-      const response = await getApiCall(`user`, data);
+      const response = await getApiCall(`post`);
       if (
         response?.statusCode === 200 &&
-        alluser?.length !== response?.data?.length
+        posts?.length !== response?.data?.length
       ) {
-        dispatch({ type: "ADD_AUTHDATA", payload: response?.data || null });
+        dispatch({ type: "ALL_POST", payload: response?.data || null });
         toast.success(response.message);
       }
     } catch (error) {
@@ -84,11 +38,9 @@ export default function UsePostContext() {
 
   return {
     setLoading,
-    handleAuth,
-    hundleGetAllUsers,
     loading,
     setMessage,
     message,
-    hundleUpdateProfile,
+    getPost,
   };
 }

@@ -1,5 +1,9 @@
 
 function ProfileHeader({coverImage, profileImage, fullName, tittle}) {
+    console.log(coverImage)
+    console.log(fullName)
+    console.log(profileImage)
+    console.log(tittle)
     return (
         <div className='text-center'>
             {coverImage && (

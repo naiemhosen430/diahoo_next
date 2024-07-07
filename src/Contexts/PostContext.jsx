@@ -3,21 +3,21 @@ import { createContext, useEffect, useReducer, useState } from "react";
 
 export const PostsContex = createContext();
 
-const profileReducer = (state, action) => {
+const postsReducer = (state, action) => {
   switch (action.type) {
     case "ALL_POST":
-      return { profile: action.payload };
+      return { posts: action.payload };
     case "ADD_POST":
-      return { profile: action.payload };
+      return { posts: action.payload };
     case "DELETE_POST":
-      return { profile: action.payload };
+      return { posts: action.payload };
     default:
       return state;
   }
 };
 
 export default function PostsContextProvider({ children }) {
-  const [state, dispatch] = useReducer(profileReducer, {
+  const [state, dispatch] = useReducer(postsReducer, {
     posts: null,
   });
 
