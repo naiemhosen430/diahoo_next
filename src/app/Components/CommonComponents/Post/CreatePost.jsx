@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { BsImage, BsFillCameraVideoFill } from "react-icons/bs";
 
-
 const PostData = {
   tittle: "",
   youtubeurl: "",
@@ -31,7 +30,7 @@ export default function CreatePost(props) {
   };
 
   const SubmitPost = async () => {
-    const token = getToken("accessToken");
+    const token = "";
     const data = decodeToken(token);
 
     await api
