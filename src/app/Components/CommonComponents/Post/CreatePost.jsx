@@ -30,21 +30,21 @@ export default function CreatePost(props) {
   };
 
   const SubmitPost = async () => {
-    const token = "";
-    const data = decodeToken(token);
+    // const token = "";
+    // const data = ''
 
-    await api
-      .post(`/api/v1/post/create/${data.userId}`, postData)
-      .then((response) => {
-        if (response.data.statusCode === 200) {
-          setCloseCreateBox(false);
-        }
-      })
-      .catch((error) => {
-        if (error) {
-          console.error(error);
-        }
-      });
+    // await api
+    //   .post(`/api/v1/post/create/${data.userId}`, postData)
+    //   .then((response) => {
+    //     if (response.data.statusCode === 200) {
+    //       setCloseCreateBox(false);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     if (error) {
+    //       console.error(error);
+    //     }
+    //   });
   };
 
   const handleSubboxClick = (event) => {

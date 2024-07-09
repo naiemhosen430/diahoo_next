@@ -28,7 +28,7 @@ export default function PostFooter({
 
   useEffect(() => {
     const token = "";
-    const data = decodeToken(token);
+    const data = "";
     let alreadyLiked = null;
     for (const nestedArray of postFooter.likes) {
       alreadyLiked = nestedArray.find(
@@ -62,8 +62,8 @@ export default function PostFooter({
 
   // like post
   const likepost = async () => {
-    const token = g""
-    const data = decodeToken(token);
+    const token = "";
+    const data = "";
 
     await api
       .post(`/api/v1/post/like/${data.userId}/${postid}/${postOwnerid}`)
@@ -83,8 +83,8 @@ export default function PostFooter({
 
   // dislike post
   const dislikepost = async () => {
-    const token = ""
-    const data = decodeToken(token);
+    const token = "";
+    const data = "";
 
     await api
       .post(`/api/v1/post/dislike/${data.userId}/${postid}/${postOwnerid}`)

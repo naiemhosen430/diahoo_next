@@ -26,7 +26,7 @@ export default function CommentBox({
 
   const fetchCommenterInfo = async () => {
     const token = "";
-    const data = decodeToken(token);
+    const data = ''
 
     const promises = allComments.map(async (comment) => {
       const url = `/api/v1/user/${comment[0].commenterid}`;
@@ -48,7 +48,7 @@ export default function CommentBox({
 
   const handleSubmit = async () => {
     const token = "";
-    const data = decodeToken(token);
+    const data = ''
 
     await api
       .post(`/api/v1/post/comment/submit/${data.userId}/${postid}`, comment)
