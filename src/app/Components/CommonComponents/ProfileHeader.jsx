@@ -2,16 +2,14 @@ function ProfileHeader({ coverImage, profileImage, fullName, tittle }) {
   console.log({ coverImage });
   return (
     <div className="text-center">
-      {coverImage && (
-        <div className="coverImage flex items-center justify-center">
-          <img
-            className="block w-full h-32 bg-slate-700"
-            src={coverImage ? coverImage : "cover.jpeg"}
-            alt="no image"
-          />
-        </div>
-      )}
-      <div className="profileImage flex items-center justify-center">
+      <div className="coverImage h-32 overflow-hidden flex items-center justify-center">
+        <img
+          className="block w-full bg-slate-700"
+          src={coverImage ? coverImage : "cover.jpeg"}
+          alt="no image"
+        />
+      </div>
+      <div className="profileImage mt-[-50px] flex items-center justify-center">
         <img
           className="h-20 w-20 block bg-slate-500 rounded-full"
           src={profileImage}

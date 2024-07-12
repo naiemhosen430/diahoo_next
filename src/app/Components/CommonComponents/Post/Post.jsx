@@ -25,7 +25,7 @@ const Post = ({ post }) => {
   }
 
   return (
-    <div className="post">
+    <div className="post bg-[#242526] rounded-xl my-2">
       <PostHeader
         postOwnerName={user?.fullname}
         postOwnerid={user?._id}
@@ -47,21 +47,20 @@ const Post = ({ post }) => {
           />
         ))}
 
-{post?.picture && Array.isArray(post?.video) && post?.video.length > 0 &&
-  post?.video.map((pic, index) => (
-    (pic !== "no image" && pic !== "") ? (
-      <div key={index} className="text-white text-sm p-4">
-        <img
-          className="max-h-[500px] w-full block"
-          src={pic}
-          alt="pic not available"
-        />
-      </div>
-    ) : null
-  ))
-}
-
-
+      {post?.picture &&
+        Array.isArray(post?.video) &&
+        post?.video.length > 0 &&
+        post?.video.map((pic, index) =>
+          pic !== "no image" && pic !== "" ? (
+            <div key={index} className="text-white text-sm p-4">
+              <img
+                className="max-h-[500px] w-full block"
+                src={pic}
+                alt="pic not available"
+              />
+            </div>
+          ) : null
+        )}
 
       <PostFooter
         postOwnerName={user?.fullname}

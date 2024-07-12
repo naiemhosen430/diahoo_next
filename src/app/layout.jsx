@@ -34,13 +34,13 @@ export default function RootLayout({ children }) {
               <PostsContextProvider>
                 <Header />
                 <div className="grid w-full overflow-hidden grid-cols-7 h-screen lg:pt-24 pt-28">
-                  <div className="lg:col-span-2 overflow-hidden col-span-12">
+                  <div className="lg:col-span-2 overflow-hidden col-span-12 overflow-y-auto custom-scrollbar-hidden">
                     <LeftSideBer />
                   </div>
                   <div className="lg:col-span-3 overflow-hidden col-span-12 custom-scrollbar-hidden overflow-y-auto">
                     {children}
                   </div>
-                  <div className="lg:col-span-2 overflow-hidden col-span-12">
+                  <div className="lg:col-span-2 overflow-hidden col-span-12 overflow-y-auto custom-scrollbar-hidden">
                     <RightSideBer />
                   </div>
                 </div>

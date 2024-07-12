@@ -23,10 +23,9 @@ export default function page() {
     fetchData();
   }, [credencial]);
 
-
   return (
     <>
-      <div className="col-span-3 h-screen overflow-y-auto bg-slate-900 mx-2">
+      <div className="col-span-3 h-screen custom-scrollbar-hidden overflow-y-auto bg-slate-900 mx-2">
         <ProfileHeader
           coverImage={profileInfo?.coverphoto}
           profileImage={profileInfo?.profilephoto}

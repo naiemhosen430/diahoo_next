@@ -71,30 +71,30 @@ export default function PostFooter({
         />
       )}
       <div className="p-4 flex text-fuchsia-50 text-center">
-        <div className="w-1/3 text-center px-4">
+        <div className="w-1/3 text-center px-4 flex items-center rounded-xl m-2 justify-center">
           <h1 className="text-md text-center text-white">{likeConter}</h1>
           {likeState ? (
             <AiOutlineHeart
-              className="block w-full text-4xl p-2 my-2 bg-slate-800 opacity-60 hover:opacity-100 rounded-xl cursor-pointer"
+              className="text-4xl p-2 cursor-pointer"
               onClick={likepost}
             />
           ) : (
             <AiFillHeart
-              className="block w-full text-4xl p-2 my-2 bg-slate-800 opacity-60 hover:opacity-100 rounded-xl cursor-pointer"
+              className="text-4xl p-2 cursor-pointer"
               onClick={dislikepost}
             />
           )}
         </div>
-        <div className="w-1/3 text-center px-4">
+        <div className="w-1/3 text-center px-4 flex items-center rounded-xl m-2 justify-center">
           <h1 className="text-md text-center text-white">{comments?.length}</h1>
           <BiSolidComment
-            className="block w-full text-4xl p-2 my-2 bg-slate-800 opacity-60 hover:opacity-100 rounded-xl cursor-pointer"
+            className="text-4xl p-2 cursor-pointer"
             onClick={showcommentbox}
           />
         </div>
-        <div className="w-1/3 text-center px-4">
+        <div className="w-1/3 text-center px-4 flex items-center rounded-xl m-2 justify-center">
           <h1 className="text-md text-center text-white">0</h1>
-          <PiShareFatFill className="block w-full text-4xl p-2 my-2 bg-slate-800 opacity-60 hover:opacity-100 rounded-xl cursor-pointer" />
+          <PiShareFatFill className="text-4xl p-2 cursor-pointer" />
         </div>
       </div>
     </>

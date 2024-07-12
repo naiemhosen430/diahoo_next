@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import PublicProfileInfo from "./PublicProfileInfo";
 import { AuthContex } from "@/Contexts/AuthContex";
 import { getApiCall, patchApiCall } from "@/api/fatchData";
+import Post from "@/app/Components/CommonComponents/Post/Post";
 
 export default function PublicProfileBody({ profileInfo }) {
   const [postShow, setPostShow] = useState(true);
@@ -260,7 +261,7 @@ export default function PublicProfileBody({ profileInfo }) {
           <span>My Info</span>
         </button>
       </div>
-      {myInfShow && <PublicProfileInfo id={profileInfo._id} />}
+      {myInfShow && <PublicProfileInfo user={profileInfo} />}
       {postShow && myPost.length === 0 ? (
         <h1 className="text-center text-slate-500 py-20 px-4 text-lg">
           There is no post
