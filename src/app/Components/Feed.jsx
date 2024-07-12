@@ -19,8 +19,6 @@ export default function Feed() {
     getPost();
   }, []);
 
-  console.log({ posts });
-
   return (
     <div className="mx-2 bg-slate-950">
       {posts?.length === 0 ? (

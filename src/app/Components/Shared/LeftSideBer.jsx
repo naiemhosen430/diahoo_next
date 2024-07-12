@@ -10,11 +10,8 @@ import { AuthContex } from "@/Contexts/AuthContex";
 function LeftSideBer() {
   const { state } = useContext(AuthContex);
   const user = state?.user;
-  const [userInfo, setUserInfo] = useState({
-    profileImage: "",
-    fullName: "",
-    tittle: "",
-  });
+  console.log(user);
+
   const [createboxshow, setCreateboxshow] = useState(false);
   const [showaddnoteboxalert, setShowaddnoteboxalert] = useState(false);
   const [showmynoteboxalert, setShowmynoteboxalert] = useState(false);
@@ -37,19 +34,6 @@ function LeftSideBer() {
     setShowmynoteboxalert(true);
   }
 
-  // useEffect(() => {
-  //   const fatchData = async () => {
-  //     const data = await GetProfile();
-  //     setUserInfo({
-  //       profileImage: data.profilephoto,
-  //       fullName: data.fullname,
-  //       tittle: data.tittle,
-  //     });
-  //   };
-
-  //   fatchData();
-  // }, []);
-
   const coverImagee = false;
   if (!user) {
     return (
@@ -67,9 +51,9 @@ function LeftSideBer() {
       <div className="lg:col-span-2 lg:block hidden text-zinc-50 p-4 bg-slate-950">
         <ProfileHeader
           coverImage={coverImagee}
-          profileImage={userInfo.profileImage}
-          fullName={userInfo.fullName}
-          tittle={userInfo.tittle}
+          profileImage={user?.profilephoto}
+          fullName={user?.fullname}
+          tittle={user?.tittle}
         />
         <ButtonBox
           postsomething={postsomething}

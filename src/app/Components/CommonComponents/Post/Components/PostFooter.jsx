@@ -63,7 +63,7 @@ export default function PostFooter({
   // like post
   const likepost = async () => {
     const token = "";
-    const data = "";
+    const data = decodeToken(token);
 
     await api
       .post(`/api/v1/post/like/${data.userId}/${postid}/${postOwnerid}`)
