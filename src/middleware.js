@@ -7,8 +7,6 @@ export function middleware(request) {
   const cookieStore = cookies();
   const accessToken = cookieStore.get("accesstoken")?.value || null;
 
-
-
   if (isPublicPath && accessToken) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
@@ -20,5 +18,14 @@ export function middleware(request) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/login", "/signup", "/"],
+  matcher: [
+    "/login",
+    "/signup",
+    "/friend",
+    "/message",
+    "/myprofile",
+    "/Search",
+    "/setting",
+    "/",
+  ],
 };

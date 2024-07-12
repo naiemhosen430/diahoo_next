@@ -3,6 +3,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { IoMdAdd } from "react-icons/io";
 import { GiNotebook } from "react-icons/gi";
 import { useContext, useEffect, useState } from "react";
+import { getApiCall, patchApiCall, postApiCall } from "@/api/fatchData";
 
 import MyInfoBody from "./MyInfoBody";
 import Post from "@/app/Components/CommonComponents/Post/Post";
@@ -85,12 +86,12 @@ export default function ProfileBody() {
         </button>
       </div>
       {myInfShow && <MyInfoBody userData={user} />}
-      {postShow && myPost.length === 0 ? (
+      {postShow && myPost?.length === 0 ? (
         <h1 className="text-center text-slate-500 py-20 px-4 text-lg">
           There is no post
         </h1>
       ) : (
-        myPost.map((postItem) => <Post key={postItem._id} post={postItem} />)
+        myPost?.map((postItem) => <Post key={postItem._id} post={postItem} />)
       )}
     </>
   );
