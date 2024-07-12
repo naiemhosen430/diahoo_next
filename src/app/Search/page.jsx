@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import PostSearch from "./components/PostSearch";
 import SearchPeople from "./components/SearchPeople";
