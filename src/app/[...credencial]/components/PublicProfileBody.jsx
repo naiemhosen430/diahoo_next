@@ -5,6 +5,7 @@ import { GiNotebook } from "react-icons/gi";
 import { useContext, useEffect, useState } from "react";
 import PublicProfileInfo from "./PublicProfileInfo";
 import { AuthContex } from "@/Contexts/AuthContex";
+import { getApiCall, patchApiCall } from "@/api/fatchData";
 
 export default function PublicProfileBody({ profileInfo }) {
   const [postShow, setPostShow] = useState(true);
@@ -35,92 +36,65 @@ export default function PublicProfileBody({ profileInfo }) {
   };
 
   useEffect(() => {
-    const fetchDataOfMe = async () => {
-      const token = getToken("accessToken");
-      const data = decodeToken(token);
+    let foundOnMyself = false;
+    user?.friendrequests?.forEach((id) => {
+      if (id === profileInfo._id) {
+        foundOnMyself = true;
+      }
+    });
 
-      setFriendonme(user?.friendrequests);
+    if (!foundOnMyself) {
+      if (profileInfo._id === user?._id) {
+        setEditProfile(true);
+      } else {
+        let ifOnMyFriendList = false;
+        user?.friends?.forEach((id) => {
+          if (id === profileInfo._id) {
+            ifOnMyFriendList = true;
+          }
+        });
 
-      let foundOnMyself = false;
-      const flatCheckRequest = [].concat(...friendonme);
-      flatCheckRequest.forEach((id) => {
-        if (id === profileInfo._id) {
-          foundOnMyself = true;
-        }
-      });
-
-      if (!foundOnMyself) {
-        if (profileInfo._id === user?.userId) {
-          setEditProfile(true);
+        if (ifOnMyFriendList) {
+          setmessage(true);
+          setAddFriend(false);
+          setMyFriend(true);
+          setUnFriend(true);
         } else {
-          setCheckOnmyFriendList(user?.friends);
-          let ifOnMyFriendList = false;
-          const flatCheckRequestOfMyFriendList = [].concat(
-            ...checkOnmyFriendList
-          );
-          flatCheckRequestOfMyFriendList.forEach((id) => {
+          let found = false;
+          user?.sendrequests.forEach((id) => {
             if (id === profileInfo._id) {
-              ifOnMyFriendList = true;
+              found = true;
             }
           });
-
-          if (ifOnMyFriendList) {
-            setmessage(true);
-            setAddFriend(false);
-            setMyFriend(true);
-            setUnFriend(true);
-          } else {
-            setFriend(user?.sendrequests);
-
-            const flatCheckSendRequests = [].concat(...friend);
-            let found = false;
-            flatCheckSendRequests.forEach((id) => {
-              if (id === profileInfo._id) {
-                found = true;
-              }
-            });
-            setcencelreq(found);
-            setAddFriend(!found);
-          }
+          setcencelreq(found);
+          setAddFriend(!found);
         }
-      } else {
-        setConfirmReq(true);
-        setDeleteReq(true);
-        setAddFriend(false);
       }
-    };
-
-    fetchDataOfMe();
-  }, [profileInfo._id, profileInfo.sendrequests]);
+    } else {
+      setConfirmReq(true);
+      setDeleteReq(true);
+      setAddFriend(false);
+    }
+  }, [profileInfo, user]);
 
   useEffect(() => {
     const fatchData = async () => {
-      await api
-        .get(`/api/v1/post/${profileInfo._id}`)
-        .then((response) => {
-          if (response) {
-            setMypost(response.data.data);
-          }
-        })
-        .catch((error) => {
-          if (error) {
-            console.log(error);
-          }
-        });
+      const data = await getApiCall(`post/user/${profileInfo._id}`);
+      if (data?.data) {
+        setMypost(data.data);
+      }
     };
 
-    fatchData();
-  }, [profileInfo._id]);
+    if (profileInfo._id) {
+      fatchData();
+    }
+  }, [profileInfo]);
 
   // manage onclick api call
   const sendRequest = async () => {
-    const token = getToken("accessToken");
-    const data = decodeToken(token);
-    const success = await api.post(
-      `/api/v1/user/sendrequest/${profileInfo._id}/${user?.userId}`
-    );
+    const data = await patchApiCall(`user/sendrequest/${profileInfo._id}`);
 
-    if (success.data.statusCode === 200) {
+    if (data.data) {
       setcencelreq(true);
       setAddFriend(false);
       setmessage(false);
@@ -128,13 +102,9 @@ export default function PublicProfileBody({ profileInfo }) {
   };
 
   const cencelrequest = async () => {
-    const token = getToken("accessToken");
-    const data = decodeToken(token);
-    const success = await api.post(
-      `/api/v1/user/cencelrequest/${profileInfo._id}/${user?.userId}`
-    );
+    const data = await patchApiCall(`user/cencelrequest/${profileInfo._id}`);
 
-    if (success.data.statusCode === 200) {
+    if (data?.data) {
       setcencelreq(false);
       setAddFriend(true);
       setmessage(false);
@@ -142,13 +112,9 @@ export default function PublicProfileBody({ profileInfo }) {
   };
 
   const confirmRequest = async () => {
-    const token = getToken("accessToken");
-    const data = decodeToken(token);
-    const success = await api.post(
-      `/api/v1/user/confirmrequest/${profileInfo._id}/${user?.userId}`
-    );
+    const data = await patchApiCall(`user/confirmrequest/${profileInfo._id}}`);
 
-    if (success.data.statusCode === 200) {
+    if (data?.data) {
       setConfirmReq(false);
       setAddFriend(false);
       setDeleteReq(false);
@@ -159,13 +125,9 @@ export default function PublicProfileBody({ profileInfo }) {
   };
 
   const deleteRequest = async () => {
-    const token = getToken("accessToken");
-    const data = decodeToken(token);
-    const success = await api.post(
-      `/api/v1/user/deleterequest/${profileInfo._id}/${user?.userId}`
-    );
+    const data = await patchApiCall(`user/deleterequest/${profileInfo._id}`);
 
-    if (success.data.statusCode === 200) {
+    if (data?.data) {
       setConfirmReq(false);
       setAddFriend(true);
       setDeleteReq(false);
@@ -173,13 +135,9 @@ export default function PublicProfileBody({ profileInfo }) {
     }
   };
   const unfriend = async () => {
-    const token = getToken("accessToken");
-    const data = decodeToken(token);
-    const success = await api.post(
-      `/api/v1/user/unfriend/${profileInfo._id}/${user?.userId}`
-    );
+    const data = await patchApiCall(`user/unfriend/${profileInfo._id}`);
 
-    if (success.data.statusCode === 200) {
+    if (data?.data) {
       setConfirmReq(false);
       setAddFriend(true);
       setDeleteReq(false);
@@ -202,10 +160,10 @@ export default function PublicProfileBody({ profileInfo }) {
   return (
     <>
       {chatVisible && <Chat closeChat={closeChat} friendId={profileInfo._id} />}
-      <div className="flex p-4 space-x-2">
+      <div className="flex p-4 lg:space-x-2 space-x-1">
         {addFriend && (
           <button
-            className="w-2/6 bg-slate-700 text-white py-2 text-sm px-4 rounded-md shadow-md flex items-center space-x-2"
+            className="w-2/6 bg-slate-700 text-white py-2 lg:text-sm text-xs lg:px-4 px-2 rounded-md shadow-md flex items-center space-x-2"
             type="button"
             onClick={sendRequest}
           >
@@ -215,7 +173,7 @@ export default function PublicProfileBody({ profileInfo }) {
         )}
         {editProfile && (
           <button
-            className="w-2/6 bg-slate-700 text-white py-2 text-sm px-4 rounded-md shadow-md flex items-center space-x-2"
+            className="w-2/6 bg-slate-700 text-white py-2 lg:text-sm text-xs lg:px-4 px-2 rounded-md shadow-md flex items-center space-x-2"
             type="button"
           >
             <IoMdAdd />
@@ -224,7 +182,7 @@ export default function PublicProfileBody({ profileInfo }) {
         )}
         {confirmReq && (
           <button
-            className="w-2/6 bg-slate-700 text-white py-2 text-sm px-4 rounded-md shadow-md flex items-center space-x-2"
+            className="w-2/6 bg-slate-700 text-white py-2 lg:text-sm text-xs lg:px-4 px-2 rounded-md shadow-md flex items-center space-x-2"
             type="button"
             onClick={confirmRequest}
           >
@@ -234,7 +192,7 @@ export default function PublicProfileBody({ profileInfo }) {
         )}
         {deleteReq && (
           <button
-            className="w-2/6 bg-slate-700 text-white py-2 text-sm px-4 rounded-md shadow-md flex items-center space-x-2"
+            className="w-2/6 bg-slate-700 text-white py-2 lg:text-sm text-xs lg:px-4 px-2 rounded-md shadow-md flex items-center space-x-2"
             type="button"
             onClick={deleteRequest}
           >
@@ -252,7 +210,7 @@ export default function PublicProfileBody({ profileInfo }) {
         )}
         {message && (
           <button
-            className="w-2/6 bg-slate-700 text-white py-2 text-sm px-4 rounded-md shadow-md flex items-center space-x-2"
+            className="w-2/6 bg-slate-700 text-white py-2 lg:text-sm text-xs lg:px-4 px-2 rounded-md shadow-md flex items-center space-x-2"
             type="button"
             onClick={openChatBox}
           >
@@ -261,7 +219,7 @@ export default function PublicProfileBody({ profileInfo }) {
         )}
         {unFriend && (
           <button
-            className="w-2/6 bg-slate-700 text-white py-2 text-sm px-4 rounded-md shadow-md flex items-center space-x-2"
+            className="w-2/6 bg-slate-700 text-white py-2 lg:text-sm text-xs lg:px-4 px-2 rounded-md shadow-md flex items-center space-x-2"
             type="button"
             onClick={unfriend}
           >
@@ -271,7 +229,7 @@ export default function PublicProfileBody({ profileInfo }) {
         )}
         {cencelreq && (
           <button
-            className="w-2/6 bg-slate-700 text-white py-2 text-sm px-4 rounded-md shadow-md flex items-center space-x-2"
+            className="w-2/6 bg-slate-700 text-white py-2 lg:text-sm text-xs lg:px-4 px-2 rounded-md shadow-md flex items-center space-x-2"
             type="button"
             onClick={cencelrequest}
           >

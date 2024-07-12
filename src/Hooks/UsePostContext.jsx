@@ -22,12 +22,11 @@ export default function UsePostContext() {
     setLoading(true);
     try {
       const response = await getApiCall(`post`);
-      if (
-        response?.statusCode === 200 &&
-        posts?.length !== response?.data?.length
-      ) {
-        dispatch({ type: "ALL_POST", payload: response?.data || null });
-        toast.success(response.message);
+      if (response?.statusCode === 200) {
+        dispatch({
+          type: "ALL_POST",
+          payload: posts ? [...posts, ...response?.data] : [...response?.data],
+        });
       }
     } catch (error) {
       // toast.error(error.response?.data?.message || "Signup failed. Please try again.");

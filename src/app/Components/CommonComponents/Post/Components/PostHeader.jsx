@@ -25,7 +25,10 @@ export default function PostHeader({
         </Link>
       </div>
       <div className="lg:w-10/12 w-8/12">
+      <Link href={`/${postOwnerid}`}>
+
         <h4 className="text-white w-full text-xl">{postOwnerName}</h4>
+      </Link>
         <p className="text-slate-500 w-full text-sm">{postedtimefordisplay}</p>
       </div>
       <div className="lg:w-1/12  w-2/12 flex justify-center items-center text-rose-50 text-4xl">

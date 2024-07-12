@@ -87,7 +87,7 @@ export default function CommentBox({
             </div>
           </div>
 
-          <div className="pt-10">
+          <div className="pt-16">
             <div>
               {commentData.length === 0 ? (
                 <h1 className="text-slate-500 text-center font-bold p-2 py-20">

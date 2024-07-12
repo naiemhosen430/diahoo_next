@@ -28,7 +28,7 @@ const Post = ({ post }) => {
     <div className="post">
       <PostHeader
         postOwnerName={user?.fullname}
-        postOwnerid={user?.id}
+        postOwnerid={user?._id}
         postOwnerPicture={user?.profilephoto}
         postedtime={post?.createdAt}
       />
