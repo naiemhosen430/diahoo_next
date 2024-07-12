@@ -19,13 +19,13 @@ export default function SingleMsg({ openChat, friendId }) {
         <div className="w-1/6 rounded-full">
           <img
             className="w-14 h-14 rounded-full"
-            src={user.profilephoto}
+            src={user?.profilephoto}
             alt="No image"
           />
         </div>
         <div className="w-5/6">
           <div>
-            <h1 className="text-white py-2 text-2xl">{user.fullname}</h1>
+            <h1 className="text-white py-2 text-2xl">{user?.fullname}</h1>
           </div>
           <div className=" flex items-center space-x-2">
             <h4 className="text-slate-500">Hello</h4>

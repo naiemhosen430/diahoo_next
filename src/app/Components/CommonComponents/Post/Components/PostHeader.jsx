@@ -19,7 +19,7 @@ export default function PostHeader({
         <Link href={`/${postOwnerid}`}>
           <img
             className="h-10 w-10 inline-block rounded-full"
-            src={postOwnerPicture}
+            src={postOwnerPicture ? postOwnerPicture : "default.jpeg"}
             alt="no image"
           />
         </Link>

@@ -9,6 +9,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import PostsContextProvider from "@/Contexts/PostContext";
+import ChatContextProvider from "@/Contexts/ChatContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,20 +30,22 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <div className="bg-[#1e1e1e]">
           <AuthContexProvider>
-            <PostsContextProvider>
-              <Header />
-              <div className="grid w-full overflow-hidden grid-cols-7 h-screen lg:pt-24 pt-28">
-                <div className="lg:col-span-2 overflow-hidden col-span-12">
-                  <LeftSideBer />
+            <ChatContextProvider>
+              <PostsContextProvider>
+                <Header />
+                <div className="grid w-full overflow-hidden grid-cols-7 h-screen lg:pt-24 pt-28">
+                  <div className="lg:col-span-2 overflow-hidden col-span-12">
+                    <LeftSideBer />
+                  </div>
+                  <div className="lg:col-span-3 overflow-hidden col-span-12 custom-scrollbar-hidden overflow-y-auto">
+                    {children}
+                  </div>
+                  <div className="lg:col-span-2 overflow-hidden col-span-12">
+                    <RightSideBer />
+                  </div>
                 </div>
-                <div className="lg:col-span-3 overflow-hidden col-span-12 custom-scrollbar-hidden overflow-y-auto">
-                  {children}
-                </div>
-                <div className="lg:col-span-2 overflow-hidden col-span-12">
-                  <RightSideBer />
-                </div>
-              </div>
-            </PostsContextProvider>
+              </PostsContextProvider>
+            </ChatContextProvider>
           </AuthContexProvider>
         </div>
       </body>

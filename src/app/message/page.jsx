@@ -16,7 +16,7 @@ function page() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getApiCall(`/api/v1/chat/myconversion/${myid}`);
+        const response = await getApiCall(`chat/myconversion`);
         setMyAllChats(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -51,6 +51,7 @@ function page() {
                     {selectedSingleMsg === frndId && ( // Render Chat only for selected SingleMsg
                       <Chat friendId={frndId} closeChat={closeChat} />
                     )}
+                    u
                     <div className="col-span-3 bg-slate-950 mx-2">
                       <SingleMsg
                         openChat={() => openChat(frndId)} // Pass frndId when opening chat

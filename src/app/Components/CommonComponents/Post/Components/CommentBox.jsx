@@ -1,3 +1,5 @@
+"use client";
+import { getApiCall, patchApiCall } from "@/api/fatchData";
 import React, { useEffect, useState } from "react";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 
@@ -25,12 +27,9 @@ export default function CommentBox({
   };
 
   const fetchCommenterInfo = async () => {
-    const token = "";
-    const data = ''
-
     const promises = allComments.map(async (comment) => {
-      const url = `/api/v1/user/${comment[0].commenterid}`;
-      const response = await api.get(url);
+      const url = `user/${comment.likeduserid}`;
+      const response = await getApiCall(url);
       return {
         ...comment,
         key: Math.random().toString(36).substr(2, 9),
@@ -47,35 +46,30 @@ export default function CommentBox({
   }, []);
 
   const handleSubmit = async () => {
-    const token = "";
-    const data = ''
+    const data = await patchApiCall(`post/comment/submit/${postid}`, comment);
+    if (data?.data) {
+      setCommentData([
+        ...commentData,
+        {
+          key: Math.random().toString(36).substr(2, 9),
+          commenterInfo: response.data,
+          commenttexttext: comment?.commentText,
+        },
+      ]);
 
-    await api
-      .post(`/api/v1/post/comment/submit/${data.userId}/${postid}`, comment)
-      .then((response) => {
-        if (response) {
-        }
-      })
-      .catch((error) => {
-        if (error) {
-          console.error(error);
-        }
+      setComment({
+        commentText: "",
       });
-
-    // Clear the input field after submission
-    setComment({
-      commentText: "",
-    });
+    }
   };
 
+  console.log(commentData);
+
   return (
-    <div
-      className="backdrop-blur-xl bg-b fixed top-0 z-20 w-2/5 h-screen"
-      onClick={closeCommentBox}
-    >
+    <div className="backdrop-blur-xl bg-black/50 fixed top-0 z-10 lg:w-[700px] overflow-hodden w-full h-screen">
       <div className="scroll h-full overflow-y-auto">
-        <div className="p-4" onClick={safeBox}>
-          <div className=" bg-black p-2 fixed top-0 w-full">
+        <div>
+          <div className=" bg-black p-4 fixed top-0 w-full">
             <div onClick={safeBox} className="flex">
               <div className="w-1/5" onClick={closeCommentBox}>
                 <HiArrowNarrowLeft className="text-white text-2xl" />
@@ -88,7 +82,7 @@ export default function CommentBox({
             </div>
           </div>
 
-          <div>
+          <div className="pt-10">
             <div>
               {commentData.length === 0 ? (
                 <h1 className="text-slate-500 text-center font-bold p-2 py-20">
@@ -98,25 +92,33 @@ export default function CommentBox({
                 commentData.map((commentItem) => (
                   <div
                     key={commentItem.key}
-                    className="p-2 my-4 shadow-xl rounded-xl hover:bg-slate-700 flex items-center"
+                    className="p-2 hover:bg-slate-900 my-4"
                   >
-                    <div className="w-1/6">
-                      <img
-                        src={commentItem.commenterInfo.data.profilePicture}
-                        alt="Profile"
-                      />
+                    <div className="shadow-xl rounded-xl  flex items-center">
+                      <div className="w-1/12">
+                        <img
+                          className="w-7 h-7 rounded-full"
+                          src={
+                            commentItem.commenterInfo?.profilePicture
+                              ? commentItem.commenterInfo?.profilePicture
+                              : "default.jpeg"
+                          }
+                          alt="Profile"
+                        />
+                      </div>
+                      <div className="w-11/12">
+                        <div className="flex items-center">
+                          <h4 className="text-white">
+                            {commentItem.commenterInfo?.fullname}
+                          </h4>
+                        </div>
+                      </div>
                     </div>
-                    <div className="w-5/6">
-                      <div className="flex items-center">
-                        <h4 className="text-white">
-                          {commentItem.commenterInfo.data.fullname}
-                        </h4>
-                      </div>
-                      <div className="flex items-center">
-                        <h6 className="text-slate-400">
-                          {commentItem[0].commenttext}
-                        </h6>
-                      </div>
+
+                    <div className="py-2">
+                      <h6 className="text-slate-400">
+                        {commentItem.commenttexttext}
+                      </h6>
                     </div>
                   </div>
                 ))

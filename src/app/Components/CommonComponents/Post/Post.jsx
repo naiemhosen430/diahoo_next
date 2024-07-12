@@ -37,25 +37,31 @@ const Post = ({ post }) => {
         <p className="text-white text-sm p-4">{post.postcontent}</p>
       )}
 
-      {post.video &&
-        post?.video?.map((vdo) => (
+      {Array.isArray(post?.video) &&
+        post?.video.length > 0 &&
+        post?.video.map((vdo, index) => (
           <div
-            key={vdo}
+            key={index}
             className="text-white lg:h-[400px] h-[200px] text-sm p-4"
             dangerouslySetInnerHTML={{ __html: vdo }}
           />
         ))}
 
-      {post.picture &&
-        post?.video?.map((pic) => (
-          <div key={pic} className="text-white text-sm p-4">
-            <img
-              className="max-h-[500px] w-full block"
-              src={pic}
-              alt="pic not available"
-            />
-          </div>
-        ))}
+{post?.picture && Array.isArray(post?.video) && post?.video.length > 0 &&
+  post?.video.map((pic, index) => (
+    (pic !== "no image" && pic !== "") ? (
+      <div key={index} className="text-white text-sm p-4">
+        <img
+          className="max-h-[500px] w-full block"
+          src={pic}
+          alt="pic not available"
+        />
+      </div>
+    ) : null
+  ))
+}
+
+
 
       <PostFooter
         postOwnerName={user?.fullname}
