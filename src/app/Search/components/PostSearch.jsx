@@ -1,5 +1,5 @@
+import Post from "@/app/Components/CommonComponents/Post/Post";
 import React, { useEffect, useState } from "react";
-import Post from "../../../Components/CommonComponents/Post/Post";
 
 export default function PostSearch({ searchPostr }) {
   const [searchPost, setSearchPost] = useState([]);

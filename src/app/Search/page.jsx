@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import PostSearch from "./components/PostSearch";
 import SearchPeople from "./components/SearchPeople";
-import { useParams } from "react-router-dom";
 import api from "../../api/api";
+import { useParams } from "next/navigation";
 
 export default function Search() {
   const [searchData, setSearchData] = useState({
