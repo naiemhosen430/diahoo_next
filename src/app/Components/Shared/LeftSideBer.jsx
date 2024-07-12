@@ -64,36 +64,35 @@ function LeftSideBer() {
             showaddnotebox={showaddnotebox}
             showmynotebox={showmynotebox}
           />
-        </div>
-
-        <div className="px-10">
-          <ul className="my-4">
-            <Link href={"/myprofile"}>
-              <li className="text-lg text-white py-2 px-4 cursor-pointer rounded hover:bg-red-700 shadow">
-                profile
-              </li>
-            </Link>
-            <Link href={"/message"}>
-              <li className="text-lg text-white py-2 px-4 cursor-pointer rounded hover:bg-red-700 shadow">
-                Message
-              </li>
-            </Link>
-            <Link href={"/friend"}>
-              <li className="text-lg text-white py-2 px-4 cursor-pointer rounded hover:bg-red-700 shadow">
-                Friend
-              </li>
-            </Link>
-            <Link href={"/video"}>
-              <li className="text-lg text-white py-2 px-4 cursor-pointer rounded hover:bg-red-700 shadow">
-                Video
-              </li>
-            </Link>
-            <Link href={"/rendompeople"}>
-              <li className="text-lg text-white py-2 px-4 cursor-pointer rounded hover:bg-red-700 shadow">
-                Rendom People
-              </li>
-            </Link>
-          </ul>
+          <div className="px-10">
+            <ul className="my-4">
+              <Link href={"/myprofile"}>
+                <li className="text-lg text-white py-2 px-4 cursor-pointer rounded hover:bg-red-700 shadow">
+                  profile
+                </li>
+              </Link>
+              <Link href={"/message"}>
+                <li className="text-lg text-white py-2 px-4 cursor-pointer rounded hover:bg-red-700 shadow">
+                  Message
+                </li>
+              </Link>
+              <Link href={"/friend"}>
+                <li className="text-lg text-white py-2 px-4 cursor-pointer rounded hover:bg-red-700 shadow">
+                  Friend
+                </li>
+              </Link>
+              <Link href={"/video"}>
+                <li className="text-lg text-white py-2 px-4 cursor-pointer rounded hover:bg-red-700 shadow">
+                  Video
+                </li>
+              </Link>
+              <Link href={"/rendompeople"}>
+                <li className="text-lg text-white py-2 px-4 cursor-pointer rounded hover:bg-red-700 shadow">
+                  Rendom People
+                </li>
+              </Link>
+            </ul>
+          </div>
         </div>
       </div>
     </>

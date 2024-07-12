@@ -1,8 +1,10 @@
+"use client";
+import { patchApiCall } from "@/api/fatchData";
 import React, { useEffect, useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 
-export default function MyInfoBody() {
-  const [user, setUser] = useState([]);
+export default function MyInfoBody({ userData }) {
+  const [user, setUser] = useState(userData);
   const [editableFields, setEditableFields] = useState({
     hometwon: false,
     homecity: false,
@@ -31,18 +33,7 @@ export default function MyInfoBody() {
       ...prevEditableFields,
       [field]: false,
     }));
-    await api
-      .put(`/api/v1/user/me/edit/${user._id}`, user)
-      .then((response) => {
-        if (response) {
-          console.log(response);
-        }
-      })
-      .catch((error) => {
-        if (error) {
-          console.log(error);
-        }
-      });
+    await patchApiCall(`auth/update`, user);
   };
 
   return (
