@@ -100,8 +100,11 @@ export default function CommentBox({
                     className="p-2 hover:bg-slate-900 my-4"
                   >
                     <div className="flex items-center">
-                      <Link href={`/${commentItem.commenterInfo?._id}`}>
-                        <div className="w-1/12">
+                      <div className="w-1/12">
+                        <Link
+                          className="block w-full"
+                          href={`/${commentItem.commenterInfo?._id}`}
+                        >
                           <img
                             className="w-7 h-7 rounded-full"
                             src={
@@ -111,15 +114,20 @@ export default function CommentBox({
                             }
                             alt="Profile"
                           />
-                        </div>
-                        <div className="w-11/12">
+                        </Link>
+                      </div>
+                      <div className="w-11/12">
+                        <Link
+                          className="block w-full"
+                          href={`/${commentItem.commenterInfo?._id}`}
+                        >
                           <div className="flex items-center">
                             <h4 className="text-white px-2">
                               {commentItem.commenterInfo?.fullname}
                             </h4>
                           </div>
-                        </div>
-                      </Link>
+                        </Link>
+                      </div>
                     </div>
 
                     <div className="py-2">
