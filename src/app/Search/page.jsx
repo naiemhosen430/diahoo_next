@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import PostSearch from "./components/PostSearch";
 import SearchPeople from "./components/SearchPeople";
-import api from "../../api/api";
 import { useParams } from "next/navigation";
+import { getApiCall } from "@/api/fatchData";
 
 export default function Search() {
   const [searchData, setSearchData] = useState({
@@ -15,7 +15,7 @@ export default function Search() {
   useEffect(() => {
     if (text !== "") {
       const fatchData = async () => {
-        const data = await api.get(`/api/v1/search/${text}`);
+        const data = await getApiCall(`/api/v1/search/${text}`);
         setSearchData({
           post: data.data.data.posts,
           people: data.data.data.users,
