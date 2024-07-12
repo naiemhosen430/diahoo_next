@@ -1,5 +1,5 @@
 function ProfileHeader({ coverImage, profileImage, fullName, tittle }) {
-
+  console.log({ coverImage });
   return (
     <div className="text-center">
       {coverImage && (
@@ -19,8 +19,8 @@ function ProfileHeader({ coverImage, profileImage, fullName, tittle }) {
         />
       </div>
       <div className="coverImage">
-        <h1 className="text-3xl text-white">{fullName}</h1>
-        <h1 className="text-slate-400">{tittle}</h1>
+        <h1 className="text-2xl text-white">{fullName}</h1>
+        <h1 className="text-slate-400 text-sm">{tittle}</h1>
       </div>
     </div>
   );
