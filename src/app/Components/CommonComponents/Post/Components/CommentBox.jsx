@@ -1,6 +1,7 @@
 "use client";
 import { getApiCall, patchApiCall } from "@/api/fatchData";
 import { AuthContex } from "@/Contexts/AuthContex";
+import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 
@@ -98,25 +99,27 @@ export default function CommentBox({
                     key={commentItem.key}
                     className="p-2 hover:bg-slate-900 my-4"
                   >
-                    <div className="shadow-xl rounded-xl  flex items-center">
-                      <div className="w-1/12">
-                        <img
-                          className="w-7 h-7 rounded-full"
-                          src={
-                            commentItem.commenterInfo?.profilePicture
-                              ? commentItem.commenterInfo?.profilePicture
-                              : "default.jpeg"
-                          }
-                          alt="Profile"
-                        />
-                      </div>
-                      <div className="w-11/12">
-                        <div className="flex items-center">
-                          <h4 className="text-white px-2">
-                            {commentItem.commenterInfo?.fullname}
-                          </h4>
+                    <div className="flex items-center">
+                      <Link href={`/${commentItem.commenterInfo?._id}`}>
+                        <div className="w-1/12">
+                          <img
+                            className="w-7 h-7 rounded-full"
+                            src={
+                              commentItem.commenterInfo?.profilePicture
+                                ? commentItem.commenterInfo?.profilePicture
+                                : "default.jpeg"
+                            }
+                            alt="Profile"
+                          />
                         </div>
-                      </div>
+                        <div className="w-11/12">
+                          <div className="flex items-center">
+                            <h4 className="text-white px-2">
+                              {commentItem.commenterInfo?.fullname}
+                            </h4>
+                          </div>
+                        </div>
+                      </Link>
                     </div>
 
                     <div className="py-2">
