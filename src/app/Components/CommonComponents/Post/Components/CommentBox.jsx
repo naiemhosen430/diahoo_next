@@ -1,6 +1,7 @@
 "use client";
 import { getApiCall, patchApiCall } from "@/api/fatchData";
-import React, { useEffect, useState } from "react";
+import { AuthContex } from "@/Contexts/AuthContex";
+import React, { useContext, useEffect, useState } from "react";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 
 function safeBox(event) {
@@ -16,6 +17,9 @@ export default function CommentBox({
   const [comment, setComment] = useState({
     commentText: "",
   });
+
+  const { state } = useContext(AuthContex);
+  const user = state?.user;
 
   const [commentData, setCommentData] = useState([]);
 
@@ -52,7 +56,7 @@ export default function CommentBox({
         ...commentData,
         {
           key: Math.random().toString(36).substr(2, 9),
-          commenterInfo: response.data,
+          commenterInfo: user,
           commenttexttext: comment?.commentText,
         },
       ]);
@@ -108,7 +112,7 @@ export default function CommentBox({
                       </div>
                       <div className="w-11/12">
                         <div className="flex items-center">
-                          <h4 className="text-white">
+                          <h4 className="text-white px-2">
                             {commentItem.commenterInfo?.fullname}
                           </h4>
                         </div>
