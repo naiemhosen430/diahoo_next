@@ -2,7 +2,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import SingleMsg from "./components/SingleMsg";
 
-
 import { AuthContex } from "@/Contexts/AuthContex";
 import Chat from "../Components/Shared/Chat";
 import { ChatContext } from "./../../Contexts/ChatContext";
@@ -48,7 +47,7 @@ function page() {
                     <div className="col-span-3 bg-slate-950 mx-2">
                       <SingleMsg
                         openChat={() => openChat(frndId)}
-                        friendId={frndId}
+                        friend={perMessageone}
                       />
                     </div>
                   </div>

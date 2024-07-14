@@ -2,16 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { getApiCall } from "@/api/fatchData";
 
-export default function SingleMsg({ openChat, friendId }) {
+export default function SingleMsg({ openChat, friend }) {
   const [user, setusER] = useState([]);
-
-  useEffect(() => {
-    const fatchData = async () => {
-      const data = await getApiCall(friendId);
-      setusER(data?.data);
-    };
-    fatchData();
-  }, [friendId]);
 
   return (
     <div className="py-4" onClick={openChat}>
@@ -19,16 +11,20 @@ export default function SingleMsg({ openChat, friendId }) {
         <div className="w-1/6 rounded-full">
           <img
             className="w-14 h-14 rounded-full"
-            src={user?.profilephoto}
+            src={friend?.profile?.profilephoto}
             alt="No image"
           />
         </div>
         <div className="w-5/6">
           <div>
-            <h1 className="text-white py-2 text-2xl">{user?.fullname}</h1>
+            <h1 className="text-white py-2 text-2xl">
+              {friend?.profile?.fullname}
+            </h1>
           </div>
           <div className=" flex items-center space-x-2">
-            <h4 className="text-slate-500">Hello</h4>
+            <h4 className="text-slate-500">
+              {friend?.profile?.messages[-1]?.mstContent?.slice(0, 20)}
+            </h4>
           </div>
         </div>
       </div>
