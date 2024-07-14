@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import { BiSolidPhoneCall } from "react-icons/bi";
@@ -24,8 +25,7 @@ function Chat({ closeChat, friendId }) {
 
   useEffect(() => {
     const fatchData = async () => {
-      await getApiCall
-        .get(`/api/v1/chat/person/${id}/${friendId}`)
+      await getApiCall(`chat/person/${friendId}`)
         .then((response) => {
           if (response) {
             setMychat(response.data.data.messages);
@@ -41,7 +41,7 @@ function Chat({ closeChat, friendId }) {
 
   useEffect(() => {
     const fatchData = async () => {
-      const data = await getApiCall(friendId);
+      const data = await getApiCall(`user/${friendId}`);
       setFriend(data?.data);
       setFullName(data.fullname);
     };
@@ -75,21 +75,21 @@ function Chat({ closeChat, friendId }) {
 
   return (
     <>
-      <div className="bg-black shadow-md rounded-lg fixed bottom-1 z-20 w-3/12 ms-80 h-4/6">
-        <div className="bg-slate-950 p-2 flex">
+      <div className="bg-black shadow-md rounded-lg fixed bottom-0 z-20 lg:w-3/12 w-full lg:ms-80 h-screen lg:h-4/6">
+        <div className="bg-slate-950 p-2 py-4 flex">
           <HiArrowNarrowLeft
             className="text-gray-50 w-2/12 text-2xl cursor-pointer"
             onClick={closeChat}
           />
           <img
             className="bg-slate-700 rounded-full w-1/12"
-            src={friend.profilephoto}
+            src={friend?.profilephoto}
             alt=""
           />
           <h2 className="text-white px-2 w-5/12">
             {fullName.length > 5
               ? `${fullName.substring(0, 5)}...`
-              : friend.fullname}
+              : friend?.fullname}
           </h2>
 
           <div className="w-4/12 flex">
