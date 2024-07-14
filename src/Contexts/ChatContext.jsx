@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { getApiCall } from "@/api/fatchData";
 import { AuthContex } from "./AuthContex";
 
