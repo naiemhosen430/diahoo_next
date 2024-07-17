@@ -25,7 +25,7 @@ export default function ChatContextProvider({ children }) {
   const user = state?.user;
   const id = user?._id;
   const [chatstate, chatdispatch] = useReducer(chatsReducer, {
-    chats: [],
+    chats: null,
   });
 
   useEffect(() => {
@@ -33,22 +33,24 @@ export default function ChatContextProvider({ children }) {
       try {
         const response = await getApiCall(`chat/myconversion`);
         const responseData = response?.data || [];
-        console.log(response?.data);
+
         if (
           !Array.isArray(chatstate.chats) ||
           chatstate.chats.length !== responseData.length
         ) {
           let newChatArray = [];
-          for (const chat in response?.data) {
-            const friendid = chat?.chatIds?.find((idd) => id != idd);
+          for (const chat of response?.data) {
+            if (id) {
+              const flatChatIds = chat?.chatIds?.flat();
+              const friendid = flatChatIds?.find((idd) => idd !== id);
 
-            if (friendid) {
-              const data = await getApiCall(`user/${friendid}`);
+              if (friendid) {
+                const profileData = await getApiCall(`user/${friendid}`);
+                const newChat = { ...chat, profile: profileData?.data };
+                newChatArray.push(newChat);
+                chatdispatch({ type: "ALL_CHAT", payload: newChatArray });
+              }
             }
-
-            const newChat = { ...chat, profile: data?.data };
-            newChatArray.push(newChat);
-            chatdispatch({ type: "ALL_CHAT", payload: newChatArray });
           }
         }
       } catch (error) {
@@ -56,7 +58,7 @@ export default function ChatContextProvider({ children }) {
       }
     };
     fetchData();
-  }, []);
+  }, [user]);
 
   return (
     <ChatContext.Provider value={{ chatstate, chatdispatch }}>

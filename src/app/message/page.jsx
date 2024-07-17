@@ -21,9 +21,6 @@ function page() {
     setSelectedSingleMsg(null); // Clear selected SingleMsg when closing chat
   };
 
-  console.log(chatstate?.chats);
-  console.log(chatstate);
-
   return (
     <>
       <div className="col-span-3">
@@ -33,10 +30,10 @@ function page() {
           </h1>
         ) : (
           <>
-            {chatstate?.chats.map((perMessageone) => {
+            {chatstate?.chats?.map((perMessageone) => {
               // Find friend ID
-              const frndId =
-                perMessageone?.chatIds.find((id) => id !== myid) || null;
+              const flatChatIds = perMessageone?.chatIds?.flat();
+              const frndId = flatChatIds?.find((id) => id !== myid);
 
               return (
                 <div key={perMessageone?._id}>

@@ -68,7 +68,7 @@ export default function CommentBox({
     }
   };
 
-  console.log(commentData);
+
 
   return (
     <div className="backdrop-blur-xl bg-black/50 fixed top-0 z-10 lg:w-[700px] overflow-hodden w-full h-screen">

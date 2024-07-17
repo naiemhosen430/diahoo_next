@@ -11,7 +11,7 @@ import { AuthContex } from "@/Contexts/AuthContex";
 function LeftSideBer() {
   const { state } = useContext(AuthContex);
   const user = state?.user;
-  console.log(user);
+
 
   const [createboxshow, setCreateboxshow] = useState(false);
   const [showaddnoteboxalert, setShowaddnoteboxalert] = useState(false);

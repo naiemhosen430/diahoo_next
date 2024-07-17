@@ -27,7 +27,7 @@ export default function Header() {
     setSearchText(event.target.value);
   };
 
-  console.log({ nam: user });
+
 
   return (
     <>

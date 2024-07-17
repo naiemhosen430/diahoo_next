@@ -36,7 +36,7 @@ function RegisterForm() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
     if (
       formData.birthday === "" ||
       formData.email === "" ||
