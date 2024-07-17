@@ -12,7 +12,6 @@ function LeftSideBer() {
   const { state } = useContext(AuthContex);
   const user = state?.user;
 
-
   const [createboxshow, setCreateboxshow] = useState(false);
   const [showaddnoteboxalert, setShowaddnoteboxalert] = useState(false);
   const [showmynoteboxalert, setShowmynoteboxalert] = useState(false);

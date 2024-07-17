@@ -4,16 +4,14 @@ import { HiArrowNarrowLeft } from "react-icons/hi";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import { AiTwotoneSetting } from "react-icons/ai";
-import { getApiCall } from "@/api/fatchData";
 import { AuthContex } from "@/Contexts/AuthContex";
 import connectIo from "@/api/connectIo";
 import { ChatContext } from "@/Contexts/ChatContext";
+import { generateRandomId } from "@/Utils/generateRandomId";
 
 function Chat({ closeChat, friendId }) {
   const [dataChat, setDataChat] = useState(null);
   const [inputMessage, setInputMessage] = useState("");
-  const [msgid, setMsgid] = useState("");
-  const [fullName, setFullName] = useState("no name");
   const chatContainerRef = useRef(null);
   const { chatstate, chatdispatch } = useContext(ChatContext);
   const allChats = chatstate?.chats;
@@ -26,8 +24,6 @@ function Chat({ closeChat, friendId }) {
   }, [dataChat]);
 
   useEffect(() => {
-    console.log(friendId);
-    console.log(allChats);
     if (friendId && allChats) {
       const chatData = allChats?.find(
         (data) => data?.profile?._id === friendId
@@ -50,16 +46,30 @@ function Chat({ closeChat, friendId }) {
         mstContent: inputMessage,
         ownerId: id,
         sendtime: new Date(),
-        status: "send",
-        msgid,
+        status: "sent",
+        id: generateRandomId(10),
+        msgid: dataChat?._id,
       });
       setInputMessage("");
     }
   };
 
-  // connectIo().on("updatedMessage", (updatedMessage) => {
-  //   setdataChat(updatedMessage.messages);
-  // });
+  // const messageData = dataChat?.messages?.filter((newMessages)=>{
+  //   if (newMessages?.id == ){
+
+  //   }
+  // })
+  connectIo().on("updatedMessage", (updatedMessage) => {
+    if (updatedMessage?.status == 200) {
+      chatdispatch({
+        type: "SENDM_ESSAGE",
+        payload: {
+          data: updatedMessage?.data,
+          id: dataChat?._id,
+        },
+      });
+    }
+  });
 
   return (
     <>

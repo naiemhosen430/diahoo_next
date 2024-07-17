@@ -11,6 +11,17 @@ const chatsReducer = (chatstate, action) => {
       return { chats: action.payload };
     case "ADD_CHAT":
       return { chats: [...chatstate.chats, action.payload] };
+    case "SENDM_ESSAGE":
+      console.log(action.payload);
+      const newChats = chatstate.chats?.map((chat) => {
+        if (chat?._id === action.payload?.id) {
+          chat?.messages?.push(action.payload?.data);
+          return chat;
+        } else {
+          return chat;
+        }
+      });
+      return { chats: newChats };
     case "DELETE_CHAT":
       return {
         chats: chatstate.chats.filter((chat) => chat._id !== action.payload),

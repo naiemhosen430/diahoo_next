@@ -10,6 +10,7 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import PostsContextProvider from "@/Contexts/PostContext";
 import ChatContextProvider from "@/Contexts/ChatContext";
+import connectIo from "@/api/connectIo";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,10 @@ export default function RootLayout({ children }) {
       delay: 0,
     });
   }, []);
+
+  useEffect(() => {
+    connectIo();
+  }, [connectIo]);
   return (
     <html lang="en">
       <body className={inter.className}>
