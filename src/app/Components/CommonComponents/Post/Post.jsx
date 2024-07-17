@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import PostHeader from "./Components/PostHeader";
 import PostFooter from "./Components/PostFooter";
 import { getApiCall } from "@/api/fatchData";
+import PostLoader from "../../Loaders/PostLoader";
 
 const Post = ({ post }) => {
   const [user, setUser] = useState(null);
@@ -21,7 +22,7 @@ const Post = ({ post }) => {
   }, [post.postownerid]);
 
   if (!user) {
-    return <h1 className="text-center p-5 text-white">Leading....</h1>;
+    return <PostLoader />;
   }
 
   return (
