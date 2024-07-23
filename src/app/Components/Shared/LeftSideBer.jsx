@@ -7,32 +7,20 @@ import CreateNote from "../CommonComponents/Note/CreateNote";
 import MyNote from "../CommonComponents/Note/MyNote";
 import Link from "next/link";
 import { AuthContex } from "@/Contexts/AuthContex";
+import { StateContext } from "@/Contexts/StateContext";
 
 function LeftSideBer() {
   const { state } = useContext(AuthContex);
+  const {
+    toggleCreatePostBox,
+    createboxshow,
+    showaddnoteboxalert,
+    toggleAddNodeBox,
+    showmynoteboxalert,
+toggleMyNodeBox
+  } = useContext(StateContext);
+
   const user = state?.user;
-
-  const [createboxshow, setCreateboxshow] = useState(false);
-  const [showaddnoteboxalert, setShowaddnoteboxalert] = useState(false);
-  const [showmynoteboxalert, setShowmynoteboxalert] = useState(false);
-
-  // hundle onclick
-  function postsomething() {
-    setCreateboxshow(true);
-  }
-  function closecreatepostbox() {
-    setCreateboxshow(false);
-  }
-  function showaddnotebox() {
-    setShowaddnoteboxalert(true);
-  }
-  function closecreatenotebox() {
-    setShowmynoteboxalert(false);
-    setShowaddnoteboxalert(false);
-  }
-  function showmynotebox() {
-    setShowmynoteboxalert(true);
-  }
 
   if (!user) {
     return (
@@ -43,13 +31,13 @@ function LeftSideBer() {
     <>
       <div className="">
         {createboxshow && (
-          <CreatePost closecreatepostbox={closecreatepostbox} />
+          <CreatePost toggleCreatePostBox={toggleCreatePostBox} />
         )}
         {showaddnoteboxalert && (
-          <CreateNote closecreatenotebox={closecreatenotebox} />
+          <CreateNote toggleAddNodeBox={toggleAddNodeBox} />
         )}
         {showmynoteboxalert && (
-          <MyNote closecreatenotebox={closecreatenotebox} />
+          <MyNote toggleMyNodeBox={toggleMyNodeBox} />
         )}
 
         <div className="lg:col-span-2 lg:block hidden text-zinc-50 p-4">
@@ -59,9 +47,9 @@ function LeftSideBer() {
             tittle={user?.tittle}
           />
           <ButtonBox
-            postsomething={postsomething}
-            showaddnotebox={showaddnotebox}
-            showmynotebox={showmynotebox}
+            toggleCreatePostBox={toggleCreatePostBox}
+            toggleAddNodeBox={toggleAddNodeBox}
+            toggleMyNodeBox={toggleMyNodeBox}
           />
           <div className="px-10">
             <ul className="my-4">

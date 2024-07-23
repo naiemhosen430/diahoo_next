@@ -11,8 +11,7 @@ export default function PublicProfileInfo({ user }) {
             className="text-white bg-slate-900 w-2/6"
             type="text"
             value={user[field]}
-            disabled={!user[field]}
-            onChange={(e) => handleInputChange(field, e.target.value)}
+            disabled
           />
         </div>
       ))}

@@ -60,7 +60,7 @@ function RegisterForm() {
   };
 
   const renderStep1 = () => (
-    <div data-aos="fade-up" data-aos-duration="2000">
+    <div data-aos="fade-left" data-aos-duration="2000">
       <label
         className="block mx-2 lg:text-xl text-sm text-slate-200"
         htmlFor="fullname"
@@ -79,8 +79,8 @@ function RegisterForm() {
       {formData?.fullname && (
         <div className="flex justify-end mt-5">
           <input
-            data-aos="fade-up"
-            data-aos-duration="1000"
+            
+          
             className="text-2xl px-5 py-2 bg-slate-800 rounded-lg cursor-pointer text-white font-bold"
             type="button"
             value="Next"
@@ -92,7 +92,7 @@ function RegisterForm() {
   );
 
   const renderStep2 = () => (
-    <div data-aos="fade-up" data-aos-duration="2000">
+    <div data-aos="fade-left" data-aos-duration="2000">
       <label
         className="block mx-2 lg:text-xl text-sm text-slate-200"
         htmlFor="birthday"
@@ -109,8 +109,8 @@ function RegisterForm() {
       />
       <div className="flex justify-between mt-5">
         <input
-          data-aos="fade-up"
-          data-aos-duration="1000"
+        
+        
           className="text-2xl px-5 py-2 bg-slate-800 rounded-lg cursor-pointer text-white font-bold"
           type="button"
           value="Back"
@@ -118,8 +118,8 @@ function RegisterForm() {
         />
         {formData?.birthday && (
           <input
-            data-aos="fade-up"
-            data-aos-duration="1000"
+            
+          
             className="text-2xl px-5 py-2 bg-slate-800 rounded-lg cursor-pointer text-white font-bold"
             type="button"
             value="Next"
@@ -131,7 +131,7 @@ function RegisterForm() {
   );
 
   const renderStep3 = () => (
-    <div data-aos="fade-up" data-aos-duration="2000">
+    <div data-aos="fade-left" data-aos-duration="2000">
       <label
         className="block mx-2 lg:text-xl text-sm text-slate-200"
         htmlFor="email"
@@ -149,8 +149,8 @@ function RegisterForm() {
       />
       <div className="flex justify-between mt-5">
         <input
-          data-aos="fade-up"
-          data-aos-duration="1000"
+        
+        
           className="text-2xl px-5 py-2 bg-slate-800 rounded-lg cursor-pointer text-white font-bold"
           type="button"
           value="Back"
@@ -158,8 +158,8 @@ function RegisterForm() {
         />
         {formData?.email && (
           <input
-            data-aos="fade-up"
-            data-aos-duration="1000"
+            
+          
             className="text-2xl px-5 py-2 bg-slate-800 rounded-lg cursor-pointer text-white font-bold"
             type="button"
             value="Next"
@@ -171,7 +171,7 @@ function RegisterForm() {
   );
 
   const renderStep4 = () => (
-    <div data-aos="fade-up" data-aos-duration="2000">
+    <div data-aos="fade-left" data-aos-duration="2000">
       <label
         className="block mx-2 lg:text-xl text-sm text-slate-200"
         htmlFor="gender"
@@ -192,7 +192,7 @@ function RegisterForm() {
       </select>
       <div className="flex justify-between mt-5">
         <input
-          data-aos="fade-up"
+        
           className="text-2xl px-5 py-2 bg-slate-800 rounded-lg cursor-pointer text-white font-bold"
           type="button"
           value="Back"
@@ -200,7 +200,7 @@ function RegisterForm() {
         />
         {formData?.gender && (
           <input
-            data-aos-duration="1000"
+          
             className="text-2xl px-5 py-2 bg-slate-800 rounded-lg cursor-pointer text-white font-bold"
             type="button"
             value="Next"
@@ -212,7 +212,7 @@ function RegisterForm() {
   );
 
   const renderStep5 = () => (
-    <div data-aos="fade-up" data-aos-duration="2000">
+    <div data-aos="fade-left" data-aos-duration="2000">
       <label
         className="block mx-2 lg:text-xl text-sm text-slate-200"
         htmlFor="password"
@@ -230,7 +230,7 @@ function RegisterForm() {
       />
       <div className="flex justify-between mt-5">
         <input
-          data-aos="fade-up"
+        
           className="text-2xl px-5 py-2 bg-slate-800 rounded-lg cursor-pointer text-white font-bold"
           type="button"
           value="Back"
@@ -238,7 +238,7 @@ function RegisterForm() {
         />
         {formData?.password && (
           <input
-            data-aos-duration="1000"
+          
             className="text-2xl px-5 py-2 bg-slate-800 rounded-lg cursor-pointer text-white font-bold"
             onClick={handleFormSubmit}
             type="button"
@@ -259,7 +259,7 @@ function RegisterForm() {
       <div
         className="bg-slate-950 rounded-lg p-10 m-auto"
         data-aos="fade-down"
-        data-aos-duration="1000"
+      
       >
         <form>
           <h1 className="lg:text-3xl text-lg py-10 pt-0 text-slate-400 p-4 font-bold text-center">

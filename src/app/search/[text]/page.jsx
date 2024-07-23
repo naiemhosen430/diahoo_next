@@ -7,18 +7,20 @@ import { getApiCall } from "@/api/fatchData";
 
 export default function Search() {
   const [searchData, setSearchData] = useState({
-    post: [],
-    people: [],
-    video: [],
+    post: null,
+    people: null,
+    video: null,
   });
   const { text } = useParams();
+  console.log({text})
   useEffect(() => {
     if (text !== "") {
       const fatchData = async () => {
-        const data = await getApiCall(`/api/v1/search/${text}`);
+        const data = await getApiCall(`search/${text}`);
+        console.log(data?.data)
         setSearchData({
-          post: data.data.data.posts,
-          people: data.data.data.users,
+          post: data?.data?.posts,
+          people: data?.data?.users,
         });
       };
       fatchData();

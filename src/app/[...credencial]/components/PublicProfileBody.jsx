@@ -5,18 +5,18 @@ import { GiNotebook } from "react-icons/gi";
 import { useContext, useEffect, useState } from "react";
 import PublicProfileInfo from "./PublicProfileInfo";
 import { AuthContex } from "@/Contexts/AuthContex";
+import Chat from "../../Components/Shared/Chat";
 import { getApiCall, patchApiCall } from "@/api/fatchData";
 import Post from "@/app/Components/CommonComponents/Post/Post";
 
-export default function PublicProfileBody({ profileInfo }) {
+export default function PublicProfileBody({ profileInfo, setProfileInfo }) {
   const [postShow, setPostShow] = useState(true);
   const [myInfShow, setMyInfoShow] = useState(false);
   const [myPost, setMypost] = useState([]);
-  const [friend, setFriend] = useState([]);
-  const [friendonme, setFriendonme] = useState([]);
-  const [checkOnmyFriendList, setCheckOnmyFriendList] = useState([]);
-  const { state } = useContext(AuthContex);
+  const { state, dispatch } = useContext(AuthContex);
   const user = state?.user;
+
+
 
   //button state herew
   const [addFriend, setAddFriend] = useState(false);
@@ -36,9 +36,12 @@ export default function PublicProfileBody({ profileInfo }) {
     setChatVisible(true);
   };
 
+
+  
   useEffect(() => {
     let foundOnMyself = false;
-    user?.friendrequests?.forEach((id) => {
+    const friendrequestsData = []?.concat(...user?.friendrequests);
+    friendrequestsData?.forEach((id) => {
       if (id === profileInfo._id) {
         foundOnMyself = true;
       }
@@ -49,7 +52,8 @@ export default function PublicProfileBody({ profileInfo }) {
         setEditProfile(true);
       } else {
         let ifOnMyFriendList = false;
-        user?.friends?.forEach((id) => {
+        const friendsData = [].concat(...user?.friends);
+        friendsData?.forEach((id) => {
           if (id === profileInfo._id) {
             ifOnMyFriendList = true;
           }
@@ -62,13 +66,21 @@ export default function PublicProfileBody({ profileInfo }) {
           setUnFriend(true);
         } else {
           let found = false;
-          user?.sendrequests.forEach((id) => {
+
+          const sendrequestsData = [].concat(...user?.sendrequests);
+          sendrequestsData.forEach((id) => {
             if (id === profileInfo._id) {
               found = true;
             }
           });
-          setcencelreq(found);
-          setAddFriend(!found);
+
+          if (found) {
+            setcencelreq(true);
+            setAddFriend(false);
+          } else {
+            setcencelreq(false);
+            setAddFriend(true);
+          }
         }
       }
     } else {
@@ -76,7 +88,7 @@ export default function PublicProfileBody({ profileInfo }) {
       setDeleteReq(true);
       setAddFriend(false);
     }
-  }, [profileInfo, user]);
+  }, []);
 
   useEffect(() => {
     const fatchData = async () => {
@@ -89,16 +101,17 @@ export default function PublicProfileBody({ profileInfo }) {
     if (profileInfo._id) {
       fatchData();
     }
-  }, [profileInfo]);
+  }, []);
 
   // manage onclick api call
   const sendRequest = async () => {
     const data = await patchApiCall(`user/sendrequest/${profileInfo._id}`);
 
     if (data.data) {
-      setcencelreq(true);
       setAddFriend(false);
-      setmessage(false);
+      setcencelreq(true);
+      setProfileInfo(data?.data);
+      dispatch({ type: "ADD_AUTH_DATA", payload: data.me });
     }
   };
 
@@ -106,22 +119,22 @@ export default function PublicProfileBody({ profileInfo }) {
     const data = await patchApiCall(`user/cencelrequest/${profileInfo._id}`);
 
     if (data?.data) {
-      setcencelreq(false);
       setAddFriend(true);
-      setmessage(false);
+      setcencelreq(false);
+      setProfileInfo(data?.data);
+      dispatch({ type: "ADD_AUTH_DATA", payload: data.me });
     }
   };
 
   const confirmRequest = async () => {
-    const data = await patchApiCall(`user/confirmrequest/${profileInfo._id}}`);
+    const data = await patchApiCall(`user/confirmrequest/${profileInfo._id}`);
 
     if (data?.data) {
-      setConfirmReq(false);
       setAddFriend(false);
-      setDeleteReq(false);
-      setmessage(true);
-      setMyFriend(true);
-      setUnFriend(true);
+      setmessage(true)
+      setUnFriend(true)
+      setProfileInfo(data?.data);
+      dispatch({ type: "ADD_AUTH_DATA", payload: data.me });
     }
   };
 
@@ -129,22 +142,22 @@ export default function PublicProfileBody({ profileInfo }) {
     const data = await patchApiCall(`user/deleterequest/${profileInfo._id}`);
 
     if (data?.data) {
-      setConfirmReq(false);
-      setAddFriend(true);
-      setDeleteReq(false);
-      setmessage(false);
+      setAddFriend(true)
+      setcencelreq(false)
+      setDeleteReq(false)
+      setProfileInfo(data?.data);
+      dispatch({ type: "ADD_AUTH_DATA", payload: data.me });
     }
   };
   const unfriend = async () => {
     const data = await patchApiCall(`user/unfriend/${profileInfo._id}`);
 
     if (data?.data) {
-      setConfirmReq(false);
-      setAddFriend(true);
-      setDeleteReq(false);
-      setmessage(false);
-      setMyFriend(false);
-      setUnFriend(false);
+      setAddFriend(true)
+      setmessage(false)
+      setUnFriend(false)
+      setProfileInfo(data?.data);
+      dispatch({ type: "ADD_AUTH_DATA", payload: data.me });
     }
   };
 
@@ -157,7 +170,6 @@ export default function PublicProfileBody({ profileInfo }) {
     setPostShow(true);
     setMyInfoShow(false);
   };
-
   return (
     <>
       {chatVisible && <Chat closeChat={closeChat} friendId={profileInfo._id} />}

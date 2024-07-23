@@ -1,7 +1,8 @@
 "use client";
-import { getApiCall } from "@/api/fatchData";
 import { getCookie } from "cookies-next";
 import { createContext, useEffect, useReducer } from "react";
+import { getApiCall } from "@/api/fatchData";
+import connectIo from "@/api/connectIo";
 
 export const AuthContex = createContext();
 
@@ -35,6 +36,18 @@ export default function AuthContexProvider({ children }) {
       fetchData();
     }
   }, [token, state]);
+
+  if ((token, state.user)) {
+    connectIo().on(state.user?._id, (updatedData) => {
+      if (updatedData?.status == 200) {
+        console.log({ updatedData });
+        dispatch({
+          type: "ADD_AUTH_DATA",
+          payload: updatedData?.data,
+        });
+      }
+    });
+  }
 
   return (
     <AuthContex.Provider value={{ state, dispatch }}>

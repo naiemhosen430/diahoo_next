@@ -64,7 +64,7 @@ function LoginForm() {
               Write your email
             </label>
             <input
-              className="text-sm text-slate-400 block rounded-xl my-5 lg:p-4 p-2 px-4 w-full bg-slate-900 border-slate-700"
+              className="text-sm text-slate-400 block rounded-xl my-5 p-4 w-full bg-slate-900 border-slate-700"
               type="email"
               placeholder="Write your email"
               value={formData.email}

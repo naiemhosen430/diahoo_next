@@ -12,11 +12,18 @@ const chatsReducer = (chatstate, action) => {
     case "ADD_CHAT":
       return { chats: [...chatstate.chats, action.payload] };
     case "SENDM_ESSAGE":
-      console.log(action.payload);
       const newChats = chatstate.chats?.map((chat) => {
         if (chat?._id === action.payload?.id) {
-          chat?.messages?.push(action.payload?.data);
-          return chat;
+          const ckChat = chat?.messages?.find((msg)=>{
+            console.log({id1:msg?.id})
+            console.log({id2:action.payload?.data?.id})
+            msg?.id == action.payload?.data?.id
+          })
+          console.log({ckChat})
+          if (!ckChat){
+            chat?.messages?.push(action.payload?.data);
+            return chat;
+          }
         } else {
           return chat;
         }
@@ -44,12 +51,9 @@ export default function ChatContextProvider({ children }) {
       try {
         const response = await getApiCall(`chat/myconversion`);
         const responseData = response?.data || [];
+        let newChatArray = [];
 
-        if (
-          !Array.isArray(chatstate.chats) ||
-          chatstate.chats.length !== responseData.length
-        ) {
-          let newChatArray = [];
+        if (responseData.length !== 0) {
           for (const chat of response?.data) {
             if (id) {
               const flatChatIds = chat?.chatIds?.flat();
@@ -63,6 +67,8 @@ export default function ChatContextProvider({ children }) {
               }
             }
           }
+        } else {
+          chatdispatch({ type: "ALL_CHAT", payload: newChatArray });
         }
       } catch (error) {
         console.error("Error fetching data:", error);

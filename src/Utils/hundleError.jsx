@@ -4,7 +4,7 @@ import { deleteCookie } from "cookies-next";
 export const handleError = (error) => {
   if (error.response) {
     if (error?.response?.status === 401) {
-      deleteCookie("accesstoken");
+      // deleteCookie("accesstoken");
     }
     toast.error(
       `Server Error: ${error.response.data.message || "An error occurred"}`

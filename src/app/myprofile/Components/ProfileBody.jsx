@@ -8,10 +8,12 @@ import { getApiCall, patchApiCall, postApiCall } from "@/api/fatchData";
 import MyInfoBody from "./MyInfoBody";
 import Post from "@/app/Components/CommonComponents/Post/Post";
 import { AuthContex } from "@/Contexts/AuthContex";
+import { StateContext } from "@/Contexts/StateContext";
 
 export default function ProfileBody() {
   const [postShow, setPostShow] = useState(true);
   const [myInfShow, setMyInfoShow] = useState(false);
+  const { toggleCreatePostBox, toggleMyNodeBox } = useContext(StateContext);
   const [myPost, setMypost] = useState(null);
   const { state } = useContext(AuthContex);
   const user = state?.user;
@@ -45,9 +47,10 @@ export default function ProfileBody() {
         <button
           className="w-2/6 bg-slate-700 text-white py-2 lg:text-sm text-[10px] lg:px-4 px-2 rounded-md shadow-md flex items-center space-x-2"
           type="button"
+          onClick={toggleCreatePostBox}
         >
           <IoMdAdd />
-          <span>Share Something</span>
+          <span>Post</span>
         </button>
         <button
           className="w-2/6 bg-slate-700 text-white py-2 lg:text-sm text-[10px] lg:px-4 px-2 rounded-md shadow-md flex items-center space-x-2"
@@ -58,6 +61,7 @@ export default function ProfileBody() {
         <button
           className="w-2/6 bg-slate-700 text-white py-2 lg:text-sm text-[10px] lg:px-4 px-2 rounded-md shadow-md flex items-center space-x-2"
           type="button"
+          onClick={toggleMyNodeBox}
         >
           <GiNotebook />
           <span>Notes</span>

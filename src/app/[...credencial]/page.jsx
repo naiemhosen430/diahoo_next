@@ -1,13 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "next/navigation";
 import ProfileHeader from "../Components/CommonComponents/ProfileHeader";
 import PublicProfileBody from "./components/PublicProfileBody";
 import { getApiCall } from "@/api/fatchData";
+import { AuthContex } from "@/Contexts/AuthContex";
 
 export default function page() {
   const [profileInfo, setProfileInfo] = useState(null);
-
+  const { state, dispatch } = useContext(AuthContex);
+  const user = state?.user;
   let { credencial } = useParams();
 
   useEffect(() => {
@@ -23,6 +25,9 @@ export default function page() {
     fetchData();
   }, [credencial]);
 
+  if (!user || !profileInfo){
+    return <h1>Loading....</h1>
+  }
   return (
     <>
       <div className="col-span-3 h-screen custom-scrollbar-hidden overflow-y-auto bg-slate-900 mx-2">
@@ -33,7 +38,7 @@ export default function page() {
           tittle={profileInfo?.tittle}
         />
 
-        {profileInfo && <PublicProfileBody profileInfo={profileInfo} />}
+        {profileInfo && <PublicProfileBody profileInfo={profileInfo} setProfileInfo={setProfileInfo} />}
       </div>
     </>
   );

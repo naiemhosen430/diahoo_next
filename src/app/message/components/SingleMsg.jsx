@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getApiCall } from "@/api/fatchData";
 
 export default function SingleMsg({ openChat, friend }) {
   return (
@@ -10,11 +9,9 @@ export default function SingleMsg({ openChat, friend }) {
           <img
             className="w-14 h-14 rounded-full"
             src={
-
               friend?.profile?.profilephoto
-              ? friend?.profile?.profilephoto
-              : "default.jpeg"
-
+                ? friend?.profile?.profilephoto
+                : "default.jpeg"
             }
             alt="No image"
           />

@@ -14,7 +14,7 @@ export default function BoxField({ myfriend }) {
       const userArray = [];
       for (const id of myfriend) {
         try {
-          const suser = await getApiCall(id);
+          const suser = await getApiCall(`user/${id}`);
           userArray.push(suser?.data);
         } catch (error) {
           console.error("Error fetching user profile:", error);
@@ -64,7 +64,7 @@ export default function BoxField({ myfriend }) {
                 <h1 className="text-white py-2 text-2xl">{user?.fullname}</h1>
               </div>
               <div className="w-2/12">
-                <Link href={`/profile/${user?._id}`}>
+                <Link href={`/${user?._id}`}>
                   <button
                     className="text-slate-100 bg-slate-600 px-8 rounded-xl py-1"
                     type="button"

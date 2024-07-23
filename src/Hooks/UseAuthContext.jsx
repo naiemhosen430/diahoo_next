@@ -46,10 +46,14 @@ export default function UseAuthContext() {
   // for updating profile
   const hundleUpdateProfile = async (data) => {
     setLoading(true);
+    console.log({ data });
     try {
       const response = await patchApiCall(`auth/update`, data);
       if (response?.statusCode === 200) {
-        dispatch({ type: "ADD_AUTHDATA", payload: response?.data || null });
+        dispatch({
+          type: "ADD_AUTHDATA",
+          payload: response?.data || null,
+        });
         toast.success(response.message);
         setMessage(true);
       }

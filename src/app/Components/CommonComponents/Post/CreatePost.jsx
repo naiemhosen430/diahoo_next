@@ -32,7 +32,6 @@ export default function CreatePost(props) {
   const SubmitPost = async () => {
     // const token = "";
     // const data = ''
-
     // await api
     //   .post(`/api/v1/post/create/${data.userId}`, postData)
     //   .then((response) => {
@@ -65,11 +64,11 @@ export default function CreatePost(props) {
     <>
       {closeCreateBox && (
         <div
-          className="backdrop-blur-xl z-10 bg-b py-20 fixed w-screen h-screen"
-          onClick={props.closecreatepostbox}
+          className="backdrop-blur-xl z-10 bg-b lg:py-20 fixed w-screen h-screen"
+          onClick={props.toggleCreatePostBox}
         >
           <div
-            className="w-3/5 p-4 m-auto rounded-xl bg-slate-900"
+            className="lg:w-3/5 p-4 m-auto rounded-xl bg-slate-900"
             onClick={handleSubboxClick}
           >
             <div>
@@ -138,7 +137,7 @@ export default function CreatePost(props) {
               <button
                 className="text-center text-zinc-50 bg-slate-800 w-full p-2 my-2"
                 type="button"
-                onClick={props.closecreatepostbox}
+                onClick={props.toggleCreatePostBox}
               >
                 Cencel
               </button>

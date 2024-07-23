@@ -6,6 +6,8 @@ import { AuthContex } from "@/Contexts/AuthContex";
 import Chat from "../Components/Shared/Chat";
 import { ChatContext } from "./../../Contexts/ChatContext";
 import ChatLoader from "./../Components/Loaders/ChatLoader";
+import { patchApiCall } from "@/api/fatchData";
+import UseAuthContext from "@/Hooks/UseAuthContext";
 
 function page() {
   const { chatstate, chatdispatch } = useContext(ChatContext);
@@ -13,6 +15,7 @@ function page() {
   const { state } = useContext(AuthContex);
   const user = state?.user;
   const myid = user?._id;
+  const { hundleUpdateProfile } = UseAuthContext();
 
   const openChat = (frndId) => {
     setSelectedSingleMsg(frndId);
@@ -21,6 +24,18 @@ function page() {
   const closeChat = () => {
     setSelectedSingleMsg(null); // Clear selected SingleMsg when closing chat
   };
+
+  useEffect(() => {
+    const fatchData = async () => {
+      const data = {
+        msgseen: chatstate.chats?.length,
+      };
+      await hundleUpdateProfile(data);
+    };
+    if (chatstate) {
+      fatchData();
+    }
+  }, [chatstate]);
 
   return (
     <>
@@ -34,7 +49,7 @@ function page() {
               ))}
           </div>
         ) : chatstate.chats.length === 0 ? (
-          <h1 className="text-slate-600 col-span-3 bg-slate-950 mx-2 text-center px-4 py-20 text-lg">
+          <h1 className="text-slate-600 col-span-3 mx-2 text-center px-4 py-20 text-lg">
             You have no chats. Start a conversation now.
           </h1>
         ) : (
@@ -51,7 +66,7 @@ function page() {
                 {selectedSingleMsg === frndId && (
                   <Chat friendId={frndId} closeChat={closeChat} />
                 )}
-                <div className="col-span-3 bg-slate-950 mx-2">
+                <div className="col-span-3 mx-2">
                   <SingleMsg
                     openChat={() => openChat(frndId)}
                     friend={perMessageone}

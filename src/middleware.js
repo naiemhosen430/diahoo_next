@@ -27,5 +27,6 @@ export const config = {
     "/Search",
     "/setting",
     "/",
+    "/:path",
   ],
 };
