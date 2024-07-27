@@ -46,14 +46,25 @@ export default function NtfContextProvider({ children }) {
     fetchData();
   }, [user]);
 
-  connectIo().on(`ntf-${id}`, (ntfData) => {
-    if (ntfData?.status == 200) {
-      ntfdispatch({
-        type: "ADD_NTF",
-        payload: ntfData?.data,
-      });
-    }
-  });
+  useEffect(() => {
+    const socket = connectIo();
+    socket.on(`ntf-${id}`, (ntfData) => {
+      if (ntfData?.status === 200) {
+        ntfdispatch({
+          type: "ADD_NTF",
+          payload: ntfData?.data,
+        });
+        window.flutter_inappwebview.callHandler(
+          "handleNotification",
+          ntfData?.data
+        );
+      }
+    });
+
+    return () => {
+      socket.off(`ntf-${id}`);
+    };
+  }, [id]);
 
   return (
     <NtfContext.Provider value={{ ntfstate, ntfdispatch }}>

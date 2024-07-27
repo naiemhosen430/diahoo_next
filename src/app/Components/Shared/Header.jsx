@@ -22,6 +22,7 @@ export default function Header() {
   const { toggleMyNodeBox } = useContext(StateContext);
   const [mainsetting, setMainSetting] = useState(true);
   const [setting, setSetting] = useState(false);
+  const [showOptionState, setShowOptionState] = useState(false);
 
   //hundle onclick
   const showSetting = () => {
@@ -51,18 +52,49 @@ export default function Header() {
     setSearchText(event.target.value);
   };
 
-  console.log({ inmsg: chatData?.length });
-  console.log({ inuser: user?.ntfseen });
+  const showOptions = () => {
+    setShowOptionState(!showOptionState);
+  };
+
+  console.log({ ppppp: user?.profilephoto });
   return (
     <>
       <div className="  fixed w-full text-slate-300 bg-[#242526] menu-item-color top-0 nav-bg z-20 lg:py-4 p-4 lg:px-8 ">
         <div className="flex justify-center items-center">
-          <div className="lg:w-3/12 w-6/12">
-            <Link href={"/"} className="font-bold block text-xl">
+          <div className="lg:w-3/12 w-6/12 flex items-center">
+            <Link
+              href={"/"}
+              className="font-bold lg:w-4/12 w-full block text-xl"
+            >
               <span className="block text-3xl w-1/6 text-white bolder text-3lg">
                 diahoo
               </span>
             </Link>
+            {user ? (
+              <>
+                <div className="lg:w-8/12 hidden lg:flex items-center justify-end">
+                  <input
+                    className="px-4 py-2 bg-black border-l-rose-600 text-white rounded-l-xl shadow w-4/6"
+                    type="search"
+                    name="searchValu"
+                    id="searchValu"
+                    placeholder="Search your key word...."
+                    value={searchText}
+                    onChange={handleSearchInputChange}
+                  />
+                  <Link href={`/search/${searchText}`}>
+                    <button
+                      className="bg-slate-700 text-rose-50 rounded-r-xl shadow py-2 px-4"
+                      type="button"
+                    >
+                      Search
+                    </button>
+                  </Link>
+                </div>
+              </>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="lg:w-6/12 hidden lg:flex">
@@ -87,18 +119,6 @@ export default function Header() {
                         ""
                       )}
                     </li>
-                    <li className="relative w-1/5 block px-10">
-                      <Link className="relative" href={`/message`}>
-                        <BsChatRightTextFill className="text-white text-xl lg:text-2xl" />
-                      </Link>
-                      {chatData && chatData?.length - user?.msgseen > 0 ? (
-                        <span className="p-1 text-xs absolute right-0 top-0 rounded-full bg-black text-white font-bold">
-                          {chatData?.length - user?.msgseen}
-                        </span>
-                      ) : (
-                        ""
-                      )}
-                    </li>
                     <li className="w-1/5 block px-10">
                       <Link href={"/myprofile"}>
                         <CgProfile className="text-white text-xl lg:text-2xl" />
@@ -117,27 +137,36 @@ export default function Header() {
             )}
           </div>
 
-          <div className="lg:w-3/12 hidden lg:flex justify-end text-right">
+          <div className="lg:w-3/12 hidden relative lg:flex justify-end text-right">
             {user ? (
               <>
-                <div className="w-full flex items-center justify-end">
-                  <input
-                    className="px-4 py-2 bg-black border-l-rose-600 text-white rounded-l-xl shadow w-4/6"
-                    type="search"
-                    name="searchValu"
-                    id="searchValu"
-                    placeholder="Search your key word...."
-                    value={searchText}
-                    onChange={handleSearchInputChange}
-                  />
-                  <Link href={`/search/${searchText}`}>
-                    <button
-                      className="bg-slate-700 text-rose-50 rounded-r-xl shadow py-2 px-4"
-                      type="button"
-                    >
-                      Search
-                    </button>
-                  </Link>
+                <div className="w-full relative p-4">
+                  <ul className="flex relative items-center justify-end">
+                    <li className="relative w-1/5 block px-10">
+                      <Link className="relative" href={`/message`}>
+                        <BsChatRightTextFill className="text-white text-xl lg:text-2xl" />
+                      </Link>
+                      {chatData && chatData?.length - user?.msgseen > 0 ? (
+                        <span className="p-1 text-xs absolute right-0 top-0 rounded-full bg-black text-white font-bold">
+                          {chatData?.length - user?.msgseen}
+                        </span>
+                      ) : (
+                        ""
+                      )}
+                    </li>
+                    <li className="w-1/5 relative block">
+                      <img
+                        className="h-[15px] w-[15px] block bg-slate-500 rounded-full"
+                        onClick={showOptions}
+                        src={
+                          user?.profilephoto
+                            ? user?.profilephoto
+                            : "default.jpeg"
+                        }
+                        alt="no image"
+                      />
+                    </li>
+                  </ul>
                 </div>
               </>
             ) : (
@@ -155,6 +184,32 @@ export default function Header() {
                 >
                   Login
                 </Link>
+              </>
+            )}
+
+            {showOptionState && (
+              <>
+                <div className="p-4 rounded-md bg-black absolute top-0 left-0">
+                  <ul>
+                    <li>
+                      <Link
+                        className="p-2 my-2 px-4 text-slate-400 font-bold hover:bg-slate-800"
+                        href={"/setting"}
+                      >
+                        My Setting
+                      </Link>
+                    </li>
+
+                    <li>
+                      <Link
+                        className="p-2 my-2 mt-4 px-4 text-slate-400 font-bold bg-slate-800"
+                        href={"/"}
+                      >
+                        Log Out
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
               </>
             )}
           </div>

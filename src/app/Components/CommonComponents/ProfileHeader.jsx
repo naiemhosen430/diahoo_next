@@ -1,5 +1,4 @@
 function ProfileHeader({ coverImage, profileImage, fullName, tittle }) {
-
   return (
     <div className="text-center">
       <div className="coverImage h-32 overflow-hidden flex items-center justify-center">
