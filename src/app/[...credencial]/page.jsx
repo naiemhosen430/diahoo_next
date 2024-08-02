@@ -36,6 +36,7 @@ export default function page() {
           profileImage={profileInfo?.profilephoto}
           fullName={profileInfo?.fullname}
           tittle={profileInfo?.tittle}
+          id={profileInfo?._id}
         />
 
         {profileInfo && <PublicProfileBody profileInfo={profileInfo} setProfileInfo={setProfileInfo} />}

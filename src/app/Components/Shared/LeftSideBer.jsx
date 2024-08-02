@@ -45,6 +45,7 @@ toggleMyNodeBox
             profileImage={user?.profilephoto}
             fullName={user?.fullname}
             tittle={user?.tittle}
+            id={user?._id}
           />
           <ButtonBox
             toggleCreatePostBox={toggleCreatePostBox}

@@ -1,13 +1,14 @@
 "use client";
+
 import { Inter } from "next/font/google";
 import "./globals.css";
-import AuthContexProvider from "@/Contexts/AuthContex";
+import AuthContexProvider, { AuthContex } from "@/Contexts/AuthContex";
 import Header from "@/app/Components/Shared/Header";
 import LeftSideBer from "./Components/Shared/LeftSideBer";
 import RightSideBer from "./Components/Shared/RightSideBer";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import PostsContextProvider from "@/Contexts/PostContext";
 import ChatContextProvider from "@/Contexts/ChatContext";
 import connectIo from "@/api/connectIo";
@@ -17,11 +18,15 @@ import NtfContextProvider from "@/Contexts/NtfContext";
 const inter = Inter({ subsets: ["latin"] });
 
 const metadata = {
-  title: "Next js setup",
+  title: "Diahoo",
   description: "",
 };
 
 export default function RootLayout({ children }) {
+  const { state } = useContext(AuthContex);
+  const { user } = state;
+  const [socket, setSocket] = useState(null);
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -30,8 +35,17 @@ export default function RootLayout({ children }) {
   }, []);
 
   useEffect(() => {
-    connectIo();
-  }, [connectIo]);
+    if (user._id) {
+      const socketInstance = connectIo(user._id);
+      setSocket(socketInstance);
+
+      // Cleanup function to disconnect the socket when the component unmounts or user changes
+      return () => {
+        socketInstance.disconnect();
+      };
+    }
+  }, [user._id]);
+
   return (
     <html lang="en">
       <body className={inter.className}>

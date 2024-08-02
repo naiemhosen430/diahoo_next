@@ -19,6 +19,7 @@ function page() {
         profileImage={user?.profileImage}
         fullName={user?.fullName}
         tittle={user?.tittle}
+        id={user?._id}
       />
 
       <ProfileBody />
